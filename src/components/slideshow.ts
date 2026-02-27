@@ -28,5 +28,5 @@ export function iniciarSlideshow() {
   setInterval(() => {
     const proximo = slideAtual === 1 ? 2 : 1;
     mudarSlide(proximo);
-  }, 7000);
+  }, 4000);
 }
