@@ -1,5 +1,6 @@
 // src/components/slideshow.ts
-let slideAtual = 1;
+let slideAtual = 1
+let intervalo: number | undefined
 
 export function mudarSlide(numero: number) {
   const slide1 = document.getElementById('slide-1');
@@ -24,9 +25,31 @@ export function mudarSlide(numero: number) {
   slideAtual = numero;
 }
 
+function iniciarIntervalo() {
+  intervalo = window.setInterval(() => {
+    const proximo = slideAtual === 1 ? 2 : 1
+    mudarSlide(proximo)
+  }, 4500)
+}
+
+function resetarIntervalo() {
+  if (intervalo) {
+    clearInterval(intervalo)
+  }
+  iniciarIntervalo()
+}
+
 export function iniciarSlideshow() {
-  setInterval(() => {
-    const proximo = slideAtual === 1 ? 2 : 1;
-    mudarSlide(proximo);
-  }, 2500);
+  mudarSlide(1)
+  iniciarIntervalo()
+
+  document.querySelectorAll('[data-slide]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const numero = Number(btn.getAttribute('data-slide'))
+      if (!numero) return
+
+      mudarSlide(numero)
+      resetarIntervalo() // 🔥 reinicia contagem
+    })
+  })
 }

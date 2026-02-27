@@ -14,7 +14,7 @@
   --color-cor-placeholder: #9ca3af;
 }
 
-/* Evita flash de conteúdo não estilizado (FOUC) */
+/* Evita flash de conteúdo não estilizado (FOUC) 
 html.js-loading body *,
 html.js-loading header,
 html.js-loading nav,
@@ -22,9 +22,10 @@ html.js-loading h1,
 html.js-loading p,
 html.js-loading .flex a {
   opacity: 0;
-  /* ou visibility: hidden; se preferir */
+  /* ou visibility: hidden; se preferir 
   transition: opacity 0.6s ease-out;
 }
+*/
 
 html.js-loaded body *,
 html.js-loaded header,

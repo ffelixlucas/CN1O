@@ -84,8 +84,8 @@ export function Header() {
       </span>
       
       <div class="flex gap-2 md:gap-3">
-        <button class="w-2 h-2 rounded-full bg-cor-primaria" onclick="mudarSlide(1)"></button>
-        <button class="w-2 h-2 rounded-full bg-cor-texto/40 hover:bg-cor-primaria transition-colors" onclick="mudarSlide(2)"></button>
+      <button data-slide="1" class="w-2 h-2 rounded-full bg-cor-primaria"></button>
+      <button data-slide="2" class="w-2 h-2 rounded-full bg-cor-texto/40 hover:bg-cor-primaria transition-colors"></button>
       </div>
     </div>
   </header>
