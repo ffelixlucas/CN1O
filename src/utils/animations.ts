@@ -50,13 +50,15 @@ export function initAnimations() {
     menuLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
+    
         const target = link.getAttribute('data-target');
         closeMenu();
-        
-        // Scroll suave para a seção
+    
+        if (!target) return;
+    
         setTimeout(() => {
-          document.getElementById(target)?.scrollIntoView({ 
-            behavior: 'smooth' 
+          document.getElementById(target)?.scrollIntoView({
+            behavior: 'smooth'
           });
         }, 500);
       });
