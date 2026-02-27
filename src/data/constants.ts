@@ -4,7 +4,7 @@ export const NAV_LINKS = [
   { href: '#aulas', label: 'Aulas' },
   { href: '#eventos', label: 'Eventos' },
   { href: `${ADMIN_URL}/loja/cn10`, label: 'Loja' },
-  { href: `${ADMIN_URL}/loja/matricula`, label: 'Matrícula' },
+  { href: `${ADMIN_URL}/matricula/cn10`, label: 'Matrícula' },
 
   { href: '#localizacao', label: 'Localização' }
 
