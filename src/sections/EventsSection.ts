@@ -8,7 +8,7 @@ export function EventsSection() {
           Próximos Eventos
         </h2>
         <div class="grid md:grid-cols-3 gap-10">
-          ${EVENTS.map((event, index) => `
+          ${EVENTS.map((event) => `
             <div class="event-card bg-white text-neutral-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
               <div class="relative overflow-hidden">
                 <img src="${event.image}" 
