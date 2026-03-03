@@ -3,6 +3,7 @@ import { App } from './app'
 import { initAnimations } from './animations/index'
 import { iniciarSlideshow } from './components/slideshow'
 import { initMobileMenu } from './components/mobileMenu/mobileMenuBehavior'
+import { hydrateClassesSection } from './sections/ClassesSection'
 
 // Não precisamos mais expor mudarSlide globalmente na maioria dos casos
 // Se realmente precisar chamar de onclick no HTML → mantenha, mas prefira event delegation
@@ -20,7 +21,9 @@ if (!appContainer) {
 }
 
 // 3. Tudo que depende do DOM pronto
-function initializeApp() {
+async function initializeApp() {
+  await hydrateClassesSection()
+
   // Inicia animações e slideshow
   initAnimations()
   iniciarSlideshow()
@@ -62,11 +65,12 @@ document.querySelectorAll('a[href^="#"]:not(a[href="#"])').forEach(anchor => {
 
 // 5. Escolher o evento certo
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeApp, { once: true })
+  document.addEventListener('DOMContentLoaded', () => {
+    void initializeApp()
+  }, { once: true })
 } else {
   // Já carregou → executa imediatamente
-  initializeApp()
+  void initializeApp()
 }
-
 
 

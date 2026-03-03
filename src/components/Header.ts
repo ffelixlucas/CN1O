@@ -4,7 +4,7 @@ import { MobileMenu } from '../components/mobileMenu/MobileMenu';
 
 export function Header() {
   return `
-  <header class="relative min-h-[100svh] flex flex-col bg-cor-fundo overflow-hidden">
+  <header data-anim="hero" class="relative min-h-[100svh] flex flex-col bg-cor-fundo overflow-hidden">
     <!-- Slideshow container -->
     <div class="absolute inset-0 z-0">
       <div 
@@ -25,7 +25,7 @@ export function Header() {
     </div>
 
     <!-- Navbar -->
-    <nav class="relative z-20 flex items-center justify-between px-6 py-5 md:py-8 max-w-7xl mx-auto w-full">
+    <nav data-anim="hero-nav" class="relative z-20 flex items-center justify-between px-6 py-5 md:py-8 max-w-7xl mx-auto w-full">
       <div class="flex items-center gap-4">
         <img src="/media/logo.png" class="h-22 md:h-26 lg:h-30" alt="Capoeira Nota 10" />
       </div>
@@ -52,20 +52,21 @@ export function Header() {
     <div class="relative z-10 flex-1 flex items-center px-6 py-8 md:py-0 max-w-7xl mx-auto w-full">
       <div class="max-w-3xl space-y-6 md:space-y-8">
 
-        <div class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-2"></div>
+        <div data-anim="hero-line" class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-2"></div>
 
-        <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-cor-texto leading-tight tracking-tight drop-shadow-xl">
+        <h1 data-anim="hero-title" class="text-4xl sm:text-5xl md:text-7xl font-black text-cor-texto leading-tight tracking-tight drop-shadow-xl">
           CAPOEIRA<br>
           <span class="text-cor-primaria">NOTA 10</span>
         </h1>
 
-        <p class="text-base md:text-xl text-cor-texto max-w-xl font-bold leading-relaxed">
+        <p data-anim="hero-copy" class="text-base md:text-xl text-cor-texto max-w-xl font-bold leading-relaxed">
           Arte, cultura e transformação social através da capoeira
         </p>
 
-        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+        <div data-anim="hero-cta-group" class="flex flex-col sm:flex-row gap-4 pt-2">
           <a 
             href="#sobre" 
+            data-anim="hero-cta"
             class="bg-cor-primaria hover:bg-cor-destaque text-cor-escura px-8 py-4 md:px-9 md:py-5 rounded-full font-semibold uppercase tracking-wider text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/30 inline-flex items-center justify-center gap-3 group"
           >
             <span>Conheça a Escola</span>
@@ -79,13 +80,13 @@ export function Header() {
 
     <!-- Footer hero - ajustado com z-index mais alto e padding inferior -->
     <div class="relative z-20 flex justify-between items-center pt-4 pb-6 md:pb-8 px-6 max-w-7xl mx-auto w-full bg-gradient-to-t from-cor-fundo/20 to-transparent">
-      <span class="text-cor-texto/70 text-xs md:text-sm uppercase tracking-widest flex items-center gap-2">
+      <span data-anim="hero-hint" class="text-cor-texto/70 text-xs md:text-sm uppercase tracking-widest flex items-center gap-2">
         <span class="animate-bounce">↓</span> Role para descobrir
       </span>
       
-      <div class="flex gap-2 md:gap-3">
-      <button data-slide="1" class="w-2 h-2 rounded-full bg-cor-primaria"></button>
-      <button data-slide="2" class="w-2 h-2 rounded-full bg-cor-texto/40 hover:bg-cor-primaria transition-colors"></button>
+      <div data-anim="hero-indicators" class="flex gap-2 md:gap-3">
+      <button data-slide="1" data-anim="hero-indicator" class="w-2 h-2 rounded-full bg-cor-primaria"></button>
+      <button data-slide="2" data-anim="hero-indicator" class="w-2 h-2 rounded-full bg-cor-texto/40 hover:bg-cor-primaria transition-colors"></button>
       </div>
     </div>
   </header>
