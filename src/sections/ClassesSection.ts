@@ -249,7 +249,7 @@ export function ClassesSection() {
             HORARIOS
           </h2>
           <p data-anim="classes-subtitle" class="mt-4 text-cor-texto/70 text-base md:text-lg max-w-2xl">
-            Escolha a turma que  se encaixa com sua idade
+            Escolha a turma que  se encaixa com sua idade!
           </p>
         </div>
 

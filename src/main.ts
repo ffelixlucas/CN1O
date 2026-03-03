@@ -1,41 +1,42 @@
 import './style.css'
-import { App } from './app'
+import { App, getCurrentRoute } from './app'
 import { initAnimations } from './animations/index'
 import { iniciarSlideshow } from './components/slideshow'
 import { initMobileMenu } from './components/mobileMenu/mobileMenuBehavior'
 import { hydrateClassesSection } from './sections/ClassesSection'
+import { hydrateNoticesSection } from './sections/NoticesSection'
+import { hydrateNewsListPage } from './pages/NewsListPage'
+import { hydrateNewsDetailPage } from './pages/NewsDetailPage'
 
-// Não precisamos mais expor mudarSlide globalmente na maioria dos casos
-// Se realmente precisar chamar de onclick no HTML → mantenha, mas prefira event delegation
-
-// 1. Prevenir FOUC de forma mais elegante (via classe no html ou body)
 document.documentElement.classList.add('js-loading')
 
-// 2. Renderizar o app com segurança
 const appContainer = document.querySelector<HTMLDivElement>('#app')
 
 if (!appContainer) {
   console.error('Elemento #app não encontrado')
-} else {
-  appContainer.innerHTML = App()
 }
 
-// 3. Tudo que depende do DOM pronto
-async function initializeApp() {
-  await hydrateClassesSection()
+function setupSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]:not(a[href="#"])').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      e.preventDefault()
+      const href = anchor.getAttribute('href')
+      if (!href) return
 
-  // Inicia animações e slideshow
-  initAnimations()
-  iniciarSlideshow()
-  initMobileMenu()
+      const target = document.querySelector(href)
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    })
+  })
+}
 
-  // Lazy loading + fade-in suave nas imagens (opcional, mas melhora perceived performance)
+function setupImageLoading() {
   document.querySelectorAll('img').forEach(img => {
     if (img.loading !== 'lazy') {
-      img.loading = 'lazy' // nativo e bom
+      img.loading = 'lazy'
     }
 
-    // Só adiciona listener se necessário (evita overhead)
     if (!img.complete) {
       img.classList.add('opacity-0', 'transition-opacity', 'duration-500')
       img.addEventListener('load', () => {
@@ -43,34 +44,73 @@ async function initializeApp() {
       }, { once: true })
     }
   })
+}
 
-  // Remove a classe de loading → revela tudo com CSS transition
+async function renderAndInitialize() {
+  if (!appContainer) return
+
+  const route = getCurrentRoute()
+  appContainer.innerHTML = App(route)
+
+  if (route.name === 'home') {
+    await Promise.all([
+      hydrateClassesSection(),
+      hydrateNoticesSection()
+    ])
+
+    initAnimations()
+    iniciarSlideshow()
+    initMobileMenu()
+    setupSmoothScroll()
+  }
+
+  if (route.name === 'news-list') {
+    await hydrateNewsListPage()
+  }
+
+  if (route.name === 'news-detail') {
+    await hydrateNewsDetailPage(route.id)
+  }
+
+  setupImageLoading()
+
   document.documentElement.classList.remove('js-loading')
   document.documentElement.classList.add('js-loaded')
 }
 
-// 4. Smooth scroll para links âncora (já está bom, só deixei mais limpo)
-document.querySelectorAll('a[href^="#"]:not(a[href="#"])').forEach(anchor => {
-  anchor.addEventListener('click', e => {
-    e.preventDefault()
-    const href = anchor.getAttribute('href')
-    if (!href) return
+function setupRouteLinks() {
+  document.addEventListener('click', (event) => {
+    const target = event.target as Element | null
+    const link = target?.closest('a[data-route]') as HTMLAnchorElement | null
+    if (!link) return
 
-    const target = document.querySelector(href)
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    if (link.target === '_blank') return
+
+    const href = link.getAttribute('href')
+    if (!href || !href.startsWith('/')) return
+
+    event.preventDefault()
+
+    if (window.location.pathname !== href) {
+      window.history.pushState({}, '', href)
     }
-  })
-})
 
-// 5. Escolher o evento certo
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    void initializeApp()
-  }, { once: true })
-} else {
-  // Já carregou → executa imediatamente
-  void initializeApp()
+    window.scrollTo({ top: 0, behavior: 'auto' })
+    void renderAndInitialize()
+  })
+
+  window.addEventListener('popstate', () => {
+    void renderAndInitialize()
+  })
 }
 
+setupRouteLinks()
 
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    void renderAndInitialize()
+  }, { once: true })
+} else {
+  void renderAndInitialize()
+}

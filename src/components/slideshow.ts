@@ -40,6 +40,10 @@ function resetarIntervalo() {
 }
 
 export function iniciarSlideshow() {
+  if (intervalo) {
+    clearInterval(intervalo)
+  }
+
   mudarSlide(1)
   iniciarIntervalo()
 

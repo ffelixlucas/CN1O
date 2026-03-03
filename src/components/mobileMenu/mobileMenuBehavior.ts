@@ -7,7 +7,6 @@ export function initMobileMenu() {
   const menuLinks = document.querySelectorAll<HTMLAnchorElement>('.menu-link');
 
   if (!menuBtn || !mobileMenu || !menuPanel || !menuOverlay) {
-    console.warn('[mobileMenu] Elementos não encontrados');
     return;
   }
 
