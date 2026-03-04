@@ -50,8 +50,8 @@ export function Header() {
         aria-controls="menu-panel"
         class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-cor-primaria/35 text-cor-primaria hover:text-cor-destaque hover:border-cor-destaque/55 transition-colors"
       >
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        <svg class="w-5.5 h-5.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
         </svg>
       </button>
     </nav>
