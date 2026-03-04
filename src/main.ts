@@ -7,6 +7,8 @@ import { hydrateClassesSection } from './sections/ClassesSection'
 import { hydrateNoticesSection } from './sections/NoticesSection'
 import { hydrateNewsListPage } from './pages/NewsListPage'
 import { hydrateNewsDetailPage } from './pages/NewsDetailPage'
+import { fetchNotices, findNoticeById } from './data/notices'
+import { applyHomeSeo, applyNewsDetailSeo, applyNewsListSeo } from './seo'
 
 document.documentElement.classList.add('js-loading')
 
@@ -25,7 +27,10 @@ function setupSmoothScroll() {
 
       const target = document.querySelector(href)
       if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        // Ajuste fino para o topo da seção ficar alinhado na tela sem descer demais.
+        const offset = 56
+        const top = target.getBoundingClientRect().top + window.scrollY - offset
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
       }
     })
   })
@@ -33,6 +38,13 @@ function setupSmoothScroll() {
 
 function setupImageLoading() {
   document.querySelectorAll('img').forEach(img => {
+    const isPriority = img.closest('header') !== null || img.hasAttribute('data-priority-image')
+    if (isPriority) {
+      img.loading = 'eager'
+      img.setAttribute('fetchpriority', 'high')
+      return
+    }
+
     if (img.loading !== 'lazy') {
       img.loading = 'lazy'
     }
@@ -53,6 +65,7 @@ async function renderAndInitialize() {
   appContainer.innerHTML = App(route)
 
   if (route.name === 'home') {
+    applyHomeSeo()
     await Promise.all([
       hydrateClassesSection(),
       hydrateNoticesSection()
@@ -65,11 +78,20 @@ async function renderAndInitialize() {
   }
 
   if (route.name === 'news-list') {
-    await hydrateNewsListPage()
+    const notices = await fetchNotices()
+    applyNewsListSeo()
+    await hydrateNewsListPage(notices)
   }
 
   if (route.name === 'news-detail') {
-    await hydrateNewsDetailPage(route.id)
+    const notices = await fetchNotices()
+    const selected = findNoticeById(notices, route.id) ?? notices[0]
+    if (selected) {
+      applyNewsDetailSeo(selected)
+    } else {
+      applyNewsListSeo()
+    }
+    await hydrateNewsDetailPage(route.id, notices)
   }
 
   setupImageLoading()

@@ -42,8 +42,8 @@ function renderDetail(item: NoticeItem, source: NoticeItem[]): string {
           <span class="px-2.5 py-1 rounded-full bg-cor-fundo/60 text-cor-texto/80">${escapeHtml(item.autor)}</span>
           <span class="px-2.5 py-1 rounded-full bg-cor-fundo/60 text-cor-texto/80">${item.leituraMin} min de leitura</span>
         </div>
-        <h1 class="mt-3 text-3xl md:text-5xl font-black text-cor-texto leading-tight">${escapeHtml(item.titulo)}</h1>
-        <div class="mt-6 space-y-5 text-cor-texto/85 text-base md:text-lg leading-relaxed">
+        <h1 class="mt-3 text-2xl sm:text-3xl md:text-5xl font-black text-cor-texto leading-[1.12] tracking-tight">${escapeHtml(item.titulo)}</h1>
+        <div class="mt-5 md:mt-6 space-y-4 md:space-y-5 text-cor-texto/85 text-[15px] md:text-lg leading-relaxed">
           ${(paragraphs.length ? paragraphs : [item.conteudo]).map((text) => `<p>${escapeHtml(text)}</p>`).join('')}
         </div>
       </div>
@@ -79,17 +79,25 @@ function bindImageLightbox(root: HTMLElement) {
 
   if (!image || !modal || !modalContent || !closeBtn) return;
 
+  const onEsc = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeModal();
+    }
+  };
+
   const openModal = () => {
     modalContent.src = image.src;
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onEsc);
   };
 
   const closeModal = () => {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
     document.body.style.overflow = '';
+    document.removeEventListener('keydown', onEsc);
   };
 
   image.addEventListener('click', openModal);
@@ -98,17 +106,12 @@ function bindImageLightbox(root: HTMLElement) {
     if (event.target === modal) closeModal();
   });
 
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
-      closeModal();
-    }
-  });
 }
 
 export function NewsDetailPage() {
   return `
     <main class="min-h-screen bg-cor-fundo text-cor-texto py-20 md:py-24">
-      <div class="max-w-5xl mx-auto px-6">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
         <a data-route href="/noticias" class="inline-flex items-center gap-2 text-cor-texto/70 hover:text-cor-primaria text-sm mb-8">← Voltar para noticias</a>
         <div data-news-detail-root>
           <p class="text-cor-texto/70">Carregando noticia...</p>
@@ -118,12 +121,12 @@ export function NewsDetailPage() {
   `;
 }
 
-export async function hydrateNewsDetailPage(noticeId: string) {
+export async function hydrateNewsDetailPage(noticeId: string, prefetched?: NoticeItem[]) {
   const root = document.querySelector<HTMLElement>('[data-news-detail-root]');
   if (!root) return;
 
   try {
-    const notices = await fetchNotices();
+    const notices = prefetched ?? (await fetchNotices());
     const item = notices.find((notice) => notice.id === noticeId) ?? notices[0];
 
     if (!item) {

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://capoeiranota10.com.br/sitemap.xml
+

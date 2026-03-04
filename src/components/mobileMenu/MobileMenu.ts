@@ -3,12 +3,19 @@ import { NAV_LINKS } from '../../data/constants';
 
 export function MobileMenu() {
   return `
-    <div id="mobile-menu" class="fixed inset-0 z-50 invisible">
+    <div id="mobile-menu" class="fixed inset-0 z-50 invisible" aria-hidden="true">
       <!-- Overlay com blur -->
       <div class="absolute inset-0 bg-cor-fundo/95 backdrop-blur-md opacity-0 transition-opacity duration-500" id="menu-overlay"></div>
       
       <!-- Menu panel -->
-      <div class="absolute inset-y-0 right-0 w-full max-w-sm bg-gradient-to-b from-cor-fundo to-cor-fundo/95 shadow-2xl transform translate-x-full transition-transform duration-500 ease-out" id="menu-panel">
+      <div
+        class="absolute inset-y-0 right-0 w-full max-w-sm bg-gradient-to-b from-cor-fundo to-cor-fundo/95 shadow-2xl transform translate-x-full transition-transform duration-500 ease-out"
+        id="menu-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu principal"
+        tabindex="-1"
+      >
         
         <!-- Header do menu com close button estilizado -->
         <div class="flex items-center justify-between p-6 border-b border-cor-primaria/20">
@@ -28,7 +35,7 @@ export function MobileMenu() {
         </div>
 
         <!-- Links de navegação -->
-        <nav class="flex flex-col p-8 space-y-6">
+        <nav class="flex flex-col p-8 space-y-6" aria-label="Links principais">
           ${NAV_LINKS.map((link, index) => `
             <a 
               href="${link.href}" 

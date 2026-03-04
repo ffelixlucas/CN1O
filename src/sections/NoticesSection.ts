@@ -69,7 +69,7 @@ function renderNotices(items: NoticeItem[]): string {
         <div class="p-5 md:p-7">
           <p class="text-[11px] uppercase tracking-[0.16em] text-cor-primaria font-semibold mb-2">Publicacao principal</p>
           <h3 class="text-cor-texto text-2xl md:text-3xl font-black leading-tight">${escapeHtml(featured.titulo)}</h3>
-          <p class="mt-3 text-cor-texto/80 text-sm md:text-base leading-relaxed line-clamp-2 md:line-clamp-none">${escapeHtml(featured.resumo)}</p>
+          <p class="mt-3 text-cor-texto/80 text-sm md:text-base leading-relaxed line-clamp-3 md:line-clamp-4">${escapeHtml(featured.resumo)}</p>
           <span class="mt-5 inline-flex items-center gap-2 text-cor-primaria font-semibold text-sm md:text-base group-hover:translate-x-1 transition-transform">
             Ver publicacao completa
             <span>→</span>
@@ -89,7 +89,7 @@ function renderNotices(items: NoticeItem[]): string {
 
 export function NoticesSection() {
   return `
-    <section id="noticias" data-anim="notices" class="relative py-24 md:py-32 bg-cor-fundo">
+    <section id="noticias" data-anim="notices" class="relative py-24 md:py-32 bg-cor-fundo scroll-mt-24 md:scroll-mt-28">
       <div class="absolute inset-0 pointer-events-none">
         <div class="absolute inset-0 bg-cor-fundo/35"></div>
         <div class="absolute -top-8 left-0 w-72 h-72 rounded-full bg-cor-primaria/8 blur-3xl"></div>

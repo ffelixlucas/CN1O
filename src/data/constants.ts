@@ -1,13 +1,10 @@
 const ADMIN_URL = import.meta.env.VITE_ADMIN_URL;
 export const NAV_LINKS = [
   { href: '#sobre', label: 'Sobre' },
+  { href: '#noticias', label: 'Noticias' },
   { href: '#aulas', label: 'Aulas' },
-  { href: '#eventos', label: 'Eventos' },
   { href: `${ADMIN_URL}/loja/cn10`, label: 'Loja' },
   { href: `${ADMIN_URL}/matricula/cn10`, label: 'Matrícula' },
-
-  { href: '#localizacao', label: 'Localização' }
-
 ];
 
 export const CLASS_SCHEDULE = [

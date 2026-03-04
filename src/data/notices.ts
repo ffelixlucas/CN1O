@@ -172,3 +172,7 @@ export async function fetchNotices(): Promise<NoticeItem[]> {
 export function toNoticeDetailPath(id: string): string {
   return `/noticias/${encodeURIComponent(id)}`;
 }
+
+export function findNoticeById(notices: NoticeItem[], id: string): NoticeItem | null {
+  return notices.find((notice) => notice.id === id) ?? null;
+}

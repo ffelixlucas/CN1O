@@ -27,7 +27,7 @@ export function Header() {
     <!-- Navbar -->
     <nav data-anim="hero-nav" class="relative z-20 flex items-center justify-between px-6 py-5 md:py-8 max-w-7xl mx-auto w-full">
       <div class="flex items-center gap-4">
-        <img src="/media/logo.png" class="h-22 md:h-26 lg:h-30" alt="Capoeira Nota 10" />
+        <img src="/media/logo.png" class="h-22 md:h-26 lg:h-30" alt="Capoeira Nota 10" loading="eager" fetchpriority="high" />
       </div>
 
       <div class="hidden md:flex items-center gap-10">
@@ -41,7 +41,13 @@ export function Header() {
         `).join('')}
       </div>
 
-      <button id="menu-btn" class="md:hidden text-3xl text-cor-texto hover:text-cor-primaria transition-colors">
+      <button
+        id="menu-btn"
+        aria-label="Abrir menu de navegação"
+        aria-expanded="false"
+        aria-controls="menu-panel"
+        class="md:hidden text-3xl text-cor-texto hover:text-cor-primaria transition-colors"
+      >
         ☰
       </button>
     </nav>

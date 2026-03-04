@@ -88,12 +88,12 @@ export function NewsListPage() {
   `;
 }
 
-export async function hydrateNewsListPage() {
+export async function hydrateNewsListPage(prefetched?: NoticeItem[]) {
   const root = document.querySelector<HTMLElement>('[data-news-list-root]');
   if (!root) return;
 
   try {
-    const notices = await fetchNotices();
+    const notices = prefetched ?? (await fetchNotices());
     root.innerHTML = renderList(notices);
   } catch (error) {
     console.error('Erro ao carregar lista de noticias.', error);
