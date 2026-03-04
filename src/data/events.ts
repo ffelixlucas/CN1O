@@ -29,6 +29,8 @@ export type EventItem = {
   telefoneContato: string | null;
   whatsappUrl: string | null;
   inscricaoUrl: string | null;
+  inscricoesAteLabel: string | null;
+  limiteInscritos: number | null;
   imageFocusX: number;
   imageFocusY: number;
   timestamp: number;
@@ -136,6 +138,12 @@ function parseFocusValue(value: unknown, fallback = 50): number {
   return Math.min(100, Math.max(0, parsed));
 }
 
+function toPositiveInteger(value: unknown): number | null {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed < 1) return null;
+  return Math.floor(parsed);
+}
+
 function normalizeInscricaoUrl(item: ApiEventItem): string | null {
   const config = normalizeConfiguracoes(item.configuracoes);
   const externalFromConfig = firstNonEmptyString([config.inscricao_externa_url]);
@@ -186,6 +194,16 @@ export function normalizeEvents(data: unknown): EventItem[] {
       const configuracoes = normalizeConfiguracoes(item.configuracoes);
       const imageFocusX = parseFocusValue(configuracoes.imagem_foco_x, 50);
       const imageFocusY = parseFocusValue(configuracoes.imagem_foco_y, 50);
+      const inscricoesAteRaw = firstNonEmptyString([item.inscricoes_ate]);
+      const inscricoesAteTs = normalizeTimestamp(inscricoesAteRaw, Number.NaN);
+      const inscricoesAteLabel = Number.isNaN(inscricoesAteTs)
+        ? null
+        : `${DATE_FORMATTER.format(new Date(inscricoesAteTs))} ${
+            TIME_FORMATTER.format(new Date(inscricoesAteTs)) === '00:00'
+              ? ''
+              : `• ${TIME_FORMATTER.format(new Date(inscricoesAteTs))}`
+          }`.trim();
+      const limiteInscritos = toPositiveInteger(configuracoes.limite_inscritos);
 
       return {
         id: String(item.id ?? `evento-${index}`),
@@ -203,6 +221,8 @@ export function normalizeEvents(data: unknown): EventItem[] {
         telefoneContato,
         whatsappUrl,
         inscricaoUrl: normalizeInscricaoUrl(item),
+        inscricoesAteLabel,
+        limiteInscritos,
         imageFocusX,
         imageFocusY,
         timestamp,

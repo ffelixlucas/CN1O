@@ -62,6 +62,18 @@ function renderEventCard(event: EventItem): string {
       <div class="p-5 md:p-6">
         <h3 class="text-cor-texto text-lg md:text-xl font-bold leading-tight">${escapeHtml(event.title)}</h3>
         <p class="mt-3 text-cor-texto/75 text-sm md:text-base leading-relaxed line-clamp-3">${linkifyText(event.description)}</p>
+        ${(event.inscricoesAteLabel || event.limiteInscritos)
+          ? `
+          <div class="mt-4 flex flex-wrap gap-2">
+            ${event.inscricoesAteLabel
+              ? `<span class="inline-flex items-center px-2.5 py-1 rounded-full border border-cor-primaria/35 text-cor-texto/85 text-[11px] md:text-xs">Inscricoes ate: ${escapeHtml(event.inscricoesAteLabel)}</span>`
+              : ''}
+            ${event.limiteInscritos
+              ? `<span class="inline-flex items-center px-2.5 py-1 rounded-full border border-cor-primaria/35 text-cor-texto/85 text-[11px] md:text-xs">Limite: ${event.limiteInscritos} inscritos</span>`
+              : ''}
+          </div>
+        `
+          : ''}
 
         <div class="mt-5 flex items-center gap-2">
           <button
@@ -143,6 +155,8 @@ function renderModal(event: EventItem): string {
             ${event.local ? `<p><strong class="text-cor-primaria">Local:</strong> ${escapeHtml(event.local)}</p>` : ''}
             ${hasAddress ? `<p><strong class="text-cor-primaria">Endereco:</strong> <a href="${escapeHtml(toGoogleMapsUrl(event.endereco!))}" target="_blank" rel="noopener noreferrer" class="underline decoration-cor-primaria/60 hover:text-cor-primaria">${escapeHtml(event.endereco!)}</a></p>` : ''}
             ${whatsappHref ? `<p><strong class="text-cor-primaria">Contato:</strong> <a href="${escapeHtml(whatsappHref)}" target="_blank" rel="noopener noreferrer" class="hover:text-cor-primaria">${event.whatsappUrl ? 'Grupo de WhatsApp' : escapeHtml(event.telefoneContato || '')}</a></p>` : ''}
+            ${event.inscricoesAteLabel ? `<p><strong class="text-cor-primaria">Inscricoes ate:</strong> ${escapeHtml(event.inscricoesAteLabel)}</p>` : ''}
+            ${event.limiteInscritos ? `<p><strong class="text-cor-primaria">Limite de inscritos:</strong> ${event.limiteInscritos}</p>` : ''}
           </div>
 
           <div class="mt-5 flex flex-wrap items-center gap-3">
