@@ -1,4 +1,9 @@
 // sections/ClassesSection.ts
+import {
+  fetchOrganizationContact,
+  normalizeWhatsappNumber
+} from '../data/organization';
+
 type ApiClassItem = {
   id: number;
   turma: string;
@@ -117,65 +122,6 @@ function formatScheduleSummary(aula: ClassGroup): string {
   return aula.horarios
     .map((slot) => `${formatDaysForUx(slot.dias)} (${formatHorario(slot.horario)})`)
     .join('; ');
-}
-
-function normalizeWhatsappNumber(value: string): string {
-  return value.replace(/\D/g, '');
-}
-
-function buildOrganizacaoApiUrl(): string | null {
-  const direct = import.meta.env.VITE_ORGANIZACAO_API_URL;
-  if (typeof direct === 'string' && direct.trim()) return direct.trim();
-
-  const candidates = [
-    import.meta.env.VITE_CLASSES_API_URL,
-    import.meta.env.VITE_NOTICIAS_API_URL,
-    import.meta.env.VITE_EDITAIS_API_URL
-  ].filter((value): value is string => typeof value === 'string' && value.trim().length > 0);
-
-  for (const baseUrl of candidates) {
-    const normalized = baseUrl.trim();
-
-    const fromClasses = normalized.match(/^(.*)\/api\/public\/horarios\/([^/?#]+).*$/i);
-    if (fromClasses) {
-      return `${fromClasses[1]}/api/public/organizacoes/${fromClasses[2]}`;
-    }
-
-    const fromNotices = normalized.match(/^(.*)\/api\/public\/(?:noticias|galeria)\/([^/?#]+).*$/i);
-    if (fromNotices) {
-      return `${fromNotices[1]}/api/public/organizacoes/${fromNotices[2]}`;
-    }
-  }
-
-  return null;
-}
-
-async function fetchWhatsappNumberFromApi(): Promise<string | null> {
-  const apiUrl = buildOrganizacaoApiUrl();
-  if (!apiUrl) return null;
-
-  try {
-    const response = await fetch(apiUrl, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json'
-      }
-    });
-
-    if (!response.ok) return null;
-    const data = (await response.json()) as Record<string, unknown>;
-
-    const rawValue =
-      (typeof data.whatsapp_contato === 'string' && data.whatsapp_contato) ||
-      (typeof data.telefone === 'string' && data.telefone) ||
-      null;
-
-    if (!rawValue) return null;
-    const cleaned = normalizeWhatsappNumber(rawValue);
-    return cleaned || null;
-  } catch {
-    return null;
-  }
 }
 
 function groupClassesByTurma(items: ApiClassItem[]): ClassGroup[] {
@@ -507,8 +453,8 @@ function setupScheduleModal() {
 export async function hydrateClassesSection() {
   const aulasSection = document.querySelector<HTMLElement>('#aulas');
   if (aulasSection) {
-    const apiWhatsapp = await fetchWhatsappNumberFromApi();
-    aulasSection.dataset.whatsappNumber = apiWhatsapp || normalizeWhatsappNumber(WHATSAPP_NUMBER_FALLBACK);
+    const apiContact = await fetchOrganizationContact();
+    aulasSection.dataset.whatsappNumber = apiContact?.whatsappNumber || normalizeWhatsappNumber(WHATSAPP_NUMBER_FALLBACK);
   }
 
   setupScheduleModal();

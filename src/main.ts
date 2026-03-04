@@ -3,8 +3,11 @@ import { App, getCurrentRoute } from './app'
 import { initAnimations } from './animations/index'
 import { iniciarSlideshow } from './components/slideshow'
 import { initMobileMenu } from './components/mobileMenu/mobileMenuBehavior'
+import { initFloatingWhatsApp } from './components/FloatingWhatsApp'
+import { hydrateFooter } from './components/Footer'
 import { hydrateClassesSection } from './sections/ClassesSection'
 import { hydrateNoticesSection } from './sections/NoticesSection'
+import { hydrateLocationSection } from './sections/LocationSection'
 import { hydrateNewsListPage } from './pages/NewsListPage'
 import { hydrateNewsDetailPage } from './pages/NewsDetailPage'
 import { fetchNotices, findNoticeById } from './data/notices'
@@ -68,7 +71,9 @@ async function renderAndInitialize() {
     applyHomeSeo()
     await Promise.all([
       hydrateClassesSection(),
-      hydrateNoticesSection()
+      hydrateNoticesSection(),
+      hydrateLocationSection(),
+      hydrateFooter()
     ])
 
     initAnimations()
@@ -95,6 +100,7 @@ async function renderAndInitialize() {
   }
 
   setupImageLoading()
+  await initFloatingWhatsApp()
 
   document.documentElement.classList.remove('js-loading')
   document.documentElement.classList.add('js-loaded')
