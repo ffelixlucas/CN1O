@@ -1,9 +1,13 @@
 const ADMIN_URL = import.meta.env.VITE_ADMIN_URL;
+const STORE_URL = import.meta.env.VITE_STORE_URL || `${ADMIN_URL}/loja/cn10`;
+
 export const NAV_LINKS = [
   { href: '#sobre', label: 'Sobre' },
-  { href: '#noticias', label: 'Noticias' },
   { href: '#aulas', label: 'Aulas' },
-  { href: `${ADMIN_URL}/loja/cn10`, label: 'Loja' },
+  { href: '#eventos', label: 'Eventos' },
+  { href: '#noticias', label: 'Noticias' },
+  { href: '#loja', label: 'Loja' },
+  { href: '#localizacao', label: 'Localizacao' },
   { href: `${ADMIN_URL}/matricula/cn10`, label: 'Matrícula' },
 ];
 
@@ -15,16 +19,21 @@ export const CLASS_SCHEDULE = [
 export const EVENTS = [
   {
     id: 1,
-    date: '15 de Março',
-    title: 'Batizado 2026',
-    description: 'Evento tradicional de troca de cordas e integração cultural com mestres convidados.',
-    image: '/media/evento1.png'
+    date: '15 de Marco de 2026',
+    time: '14:00',
+    title: 'Batizado CN10 2026',
+    description: 'Troca de cordas, roda aberta e confraternizacao com alunos, familias e convidados.',
+    image: '/media/capoeira-nota10-social-1200x630.jpg',
+    inscricaoUrl: `${ADMIN_URL}/inscricoes`
   },
   {
     id: 2,
-    date: '20 de Abril',
-    title: 'Festival Cultural',
-    description: 'Apresentações, música ao vivo, roda aberta e integração com a comunidade.',
-    image: '/media/evento2.png'
+    date: '20 de Abril de 2026',
+    time: '09:00',
+    title: 'Oficina Cultural de Capoeira',
+    description: 'Manha de oficina para iniciantes, musicalidade e fundamentos de roda para toda comunidade.',
+    image: '/media/bg-hero2.jpg'
   }
 ];
+
+export const STORE_LINK = STORE_URL;

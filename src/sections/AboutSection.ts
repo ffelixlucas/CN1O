@@ -37,10 +37,10 @@ export function AboutSection() {
 
           <div data-anim="about-image" class="relative md:pt-3">
             <div class="absolute -inset-4 rounded-3xl bg-gradient-to-br from-cor-primaria/20 via-cor-secundaria/20 to-transparent blur-2xl"></div>
-            <div class="relative bg-cor-secundaria/30 border border-cor-texto/15 rounded-3xl p-4 shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
+            <div class="relative">
               <img
                 src="/media/professor2.png"
-                class="w-full rounded-2xl object-contain max-h-[620px] mx-auto"
+                class="w-full object-contain max-h-[620px] mx-auto"
                 alt="Professor da Capoeira Nota 10"
               >
             </div>
