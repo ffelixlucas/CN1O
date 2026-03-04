@@ -18,7 +18,9 @@ export function Footer() {
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-10">
           <div class="space-y-4">
-            <img src="/media/logo.png" class="h-14" alt="Capoeira Nota 10">
+            <div class="inline-flex items-center justify-center rounded-2xl bg-white/95 p-3 shadow-[0_12px_28px_rgba(0,0,0,0.28)] ring-1 ring-white/70">
+              <img src="/media/logo.png" class="h-24 md:h-28 w-auto" alt="Grupo Capoeira Brasil - Capoeira Nota 10">
+            </div>
             <p data-footer-tagline class="text-cor-texto/65 text-sm leading-relaxed">
               Arte, cultura e transformacao social atraves da capoeira.
             </p>
