@@ -14,6 +14,10 @@ function toMapsLink(query: string): string {
   return `https://maps.google.com/?q=${encodeURIComponent(query)}`;
 }
 
+function toGmailComposeUrl(email: string): string {
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+}
+
 function onlyDigits(value: string): string {
   return value.replace(/\D/g, '');
 }
@@ -62,8 +66,10 @@ export function LocationSection() {
                   </a>
 
                   <a
-                    href="mailto:${DEFAULT_EMAIL}"
+                    href="${toGmailComposeUrl(DEFAULT_EMAIL)}"
                     data-loc-email-link
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="flex items-center gap-2 text-cor-texto/85 text-sm md:text-base hover:text-cor-primaria transition-colors"
                   >
                     <svg class="w-4 h-4 text-cor-primaria" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -131,7 +137,7 @@ export async function hydrateLocationSection() {
 
   if (profile.email) {
     emailTextEl.textContent = profile.email;
-    emailLinkEl.href = `mailto:${profile.email}`;
+    emailLinkEl.href = toGmailComposeUrl(profile.email);
   }
 
   const mapQuery = [profile.endereco, profile.cidade, profile.estado, profile.pais].filter(Boolean).join(' ');

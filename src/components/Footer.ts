@@ -5,6 +5,10 @@ function onlyDigits(value: string): string {
   return value.replace(/\D/g, '');
 }
 
+function toGmailComposeUrl(email: string): string {
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+}
+
 export function Footer() {
   const sectionLinks = NAV_LINKS.filter((link) => link.href.startsWith('#'));
   const currentYear = new Date().getFullYear();
@@ -57,8 +61,10 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:contato@capoeiranota10.com.br"
+                  href="${toGmailComposeUrl('contato@capoeiranota10.com.br')}"
                   data-footer-email-link
+                  target="_blank"
+                  rel="noopener noreferrer"
                   class="inline-flex items-center gap-2 hover:text-cor-primaria transition-colors"
                 >
                   <svg class="w-4 h-4 text-cor-primaria" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -111,7 +117,7 @@ export async function hydrateFooter() {
   }
 
   if (emailLinkEl && profile.email) {
-    emailLinkEl.href = `mailto:${profile.email}`;
+    emailLinkEl.href = toGmailComposeUrl(profile.email);
   }
 
   if (cityEl && cityState) {
