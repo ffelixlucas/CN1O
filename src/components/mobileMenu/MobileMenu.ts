@@ -28,8 +28,10 @@ export function MobileMenu() {
             <span class="absolute inset-0 rounded-full border border-cor-texto/20 group-hover:border-cor-primaria/50 transition-colors duration-300"></span>
             
             <!-- Ícone X -->
-            <span class="relative text-2xl text-cor-texto/70 group-hover:text-cor-primaria transition-colors duration-300">
-              ✕
+            <span class="relative text-cor-texto/70 group-hover:text-cor-primaria transition-colors duration-300">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+              </svg>
             </span>
           </button>
         </div>

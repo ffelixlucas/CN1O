@@ -22,6 +22,7 @@ type ClassGroup = {
 
 const TURMA_ORDER = ['INFANTIL', 'JUVENIL', 'ADULTOS'] as const;
 const WEEKDAY_ORDER = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'] as const;
+const WHATSAPP_NUMBER_FALLBACK = import.meta.env.VITE_WHATSAPP_NUMBER || '5541999644301';
 
 function normalizeTurmaName(turma: string): string {
   return turma.trim().toUpperCase();
@@ -102,6 +103,79 @@ function formatFaixaEtaria(aula: ClassGroup): string | null {
 function formatTurmaLabel(turma: string): string {
   const lower = turma.toLowerCase();
   return lower.charAt(0).toUpperCase() + lower.slice(1);
+}
+
+function escapeAttribute(value: string): string {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
+}
+
+function formatScheduleSummary(aula: ClassGroup): string {
+  return aula.horarios
+    .map((slot) => `${formatDaysForUx(slot.dias)} (${formatHorario(slot.horario)})`)
+    .join('; ');
+}
+
+function normalizeWhatsappNumber(value: string): string {
+  return value.replace(/\D/g, '');
+}
+
+function buildOrganizacaoApiUrl(): string | null {
+  const direct = import.meta.env.VITE_ORGANIZACAO_API_URL;
+  if (typeof direct === 'string' && direct.trim()) return direct.trim();
+
+  const candidates = [
+    import.meta.env.VITE_CLASSES_API_URL,
+    import.meta.env.VITE_NOTICIAS_API_URL,
+    import.meta.env.VITE_EDITAIS_API_URL
+  ].filter((value): value is string => typeof value === 'string' && value.trim().length > 0);
+
+  for (const baseUrl of candidates) {
+    const normalized = baseUrl.trim();
+
+    const fromClasses = normalized.match(/^(.*)\/api\/public\/horarios\/([^/?#]+).*$/i);
+    if (fromClasses) {
+      return `${fromClasses[1]}/api/public/organizacoes/${fromClasses[2]}`;
+    }
+
+    const fromNotices = normalized.match(/^(.*)\/api\/public\/(?:noticias|galeria)\/([^/?#]+).*$/i);
+    if (fromNotices) {
+      return `${fromNotices[1]}/api/public/organizacoes/${fromNotices[2]}`;
+    }
+  }
+
+  return null;
+}
+
+async function fetchWhatsappNumberFromApi(): Promise<string | null> {
+  const apiUrl = buildOrganizacaoApiUrl();
+  if (!apiUrl) return null;
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json'
+      }
+    });
+
+    if (!response.ok) return null;
+    const data = (await response.json()) as Record<string, unknown>;
+
+    const rawValue =
+      (typeof data.whatsapp_contato === 'string' && data.whatsapp_contato) ||
+      (typeof data.telefone === 'string' && data.telefone) ||
+      null;
+
+    if (!rawValue) return null;
+    const cleaned = normalizeWhatsappNumber(rawValue);
+    return cleaned || null;
+  } catch {
+    return null;
+  }
 }
 
 function groupClassesByTurma(items: ApiClassItem[]): ClassGroup[] {
@@ -188,15 +262,11 @@ function renderCards(items: ClassGroup[]): string {
               <div class="relative">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-cor-primaria text-cor-escura rounded-full text-[11px] md:text-xs font-extrabold mb-3 uppercase tracking-wider">
                   <span class="w-1.5 h-1.5 rounded-full bg-cor-escura"></span>
-                  Turma
+                  ${formatTurmaLabel(aula.turma)}
                 </div>
 
-                <h3 class="text-cor-texto text-xl md:text-2xl font-black leading-tight">
-                  ${formatTurmaLabel(aula.turma)}
-                </h3>
-
                 ${formatFaixaEtaria(aula) ? `
-                  <p class="text-cor-texto/70 text-xs md:text-sm mt-2 mb-4">
+                  <p class="text-cor-texto/70 text-xs md:text-sm mt-1 mb-4">
                     Faixa etaria: <span class="text-cor-texto/90 font-semibold">${formatFaixaEtaria(aula)}</span>
                   </p>
                 ` : ''}
@@ -220,10 +290,17 @@ function renderCards(items: ClassGroup[]): string {
                     .join('')}
                 </div>
 
-                <a href="#localizacao" class="mt-5 inline-flex items-center gap-2 text-cor-primaria font-semibold text-sm md:text-base transition-transform duration-300 group-hover:translate-x-1">
+                <button
+                  type="button"
+                  data-agendar-btn
+                  data-turma="${escapeAttribute(formatTurmaLabel(aula.turma))}"
+                  data-faixa-etaria="${escapeAttribute(formatFaixaEtaria(aula) ?? '')}"
+                  data-horarios="${escapeAttribute(formatScheduleSummary(aula))}"
+                  class="mt-5 inline-flex items-center gap-2 text-cor-primaria font-semibold text-sm md:text-base transition-transform duration-300 group-hover:translate-x-1"
+                >
                   Quero agendar
                   <span>→</span>
-                </a>
+                </button>
               </div>
             </article>
           `
@@ -264,12 +341,178 @@ export function ClassesSection() {
             Aula experimental gratuita para novos alunos
           </p>
         </div>
+
+        <div data-schedule-modal class="hidden fixed inset-0 z-[80] p-4 md:p-6">
+          <div data-schedule-backdrop class="absolute inset-0 bg-cor-fundo/85 backdrop-blur-sm"></div>
+          <div class="relative max-w-2xl mx-auto mt-6 md:mt-10 rounded-3xl border border-cor-texto/10 bg-cor-secundaria/70 shadow-2xl p-5 md:p-7">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.14em] text-cor-primaria font-semibold">Agendamento rapido</p>
+                <h3 class="text-cor-texto text-xl md:text-2xl font-black mt-2">Enviar mensagem no WhatsApp</h3>
+              </div>
+              <button type="button" data-schedule-close class="text-cor-texto/70 hover:text-cor-primaria leading-none">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <form data-schedule-form class="mt-5 space-y-4">
+              <p class="text-cor-texto/80 text-sm md:text-base">
+                Turma selecionada:
+                <span data-schedule-turma class="font-semibold text-cor-texto"></span>
+              </p>
+
+              <div>
+                <label for="schedule-name" class="block text-cor-texto/70 text-xs md:text-sm uppercase tracking-wider mb-1.5">
+                  Nome do aluno(a) (opcional)
+                </label>
+                <input
+                  id="schedule-name"
+                  data-schedule-name
+                  type="text"
+                  maxlength="80"
+                  class="w-full rounded-xl border border-cor-texto/15 bg-cor-fundo/55 text-cor-texto text-sm md:text-base p-3 focus:outline-none focus:border-cor-primaria"
+                  placeholder="Ex.: Maria"
+                />
+              </div>
+
+              <div>
+                <label for="schedule-age" class="block text-cor-texto/70 text-xs md:text-sm uppercase tracking-wider mb-1.5">
+                  Idade do aluno(a)
+                </label>
+                <input
+                  id="schedule-age"
+                  data-schedule-age
+                  type="number"
+                  inputmode="numeric"
+                  min="2"
+                  max="90"
+                  required
+                  class="w-full rounded-xl border border-cor-texto/15 bg-cor-fundo/55 text-cor-texto text-sm md:text-base p-3 focus:outline-none focus:border-cor-primaria"
+                  placeholder="Ex.: 10"
+                />
+              </div>
+
+              <div class="mt-5 flex flex-col sm:flex-row gap-3 sm:justify-end">
+                <button type="button" data-schedule-close class="px-5 py-3 rounded-full border border-cor-texto/20 text-cor-texto/80 text-sm md:text-base hover:border-cor-primaria hover:text-cor-primaria transition-colors">
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-cor-primaria text-cor-escura font-bold text-sm md:text-base hover:bg-cor-destaque transition-colors"
+                >
+                  Pedir aula experimental
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
   `;
 }
 
+function setupScheduleModal() {
+  const section = document.querySelector<HTMLElement>('#aulas');
+  if (!section || section.dataset.scheduleModalBound === '1') return;
+  section.dataset.scheduleModalBound = '1';
+
+  const modal = section.querySelector<HTMLElement>('[data-schedule-modal]');
+  const turmaEl = section.querySelector<HTMLElement>('[data-schedule-turma]');
+  const formEl = section.querySelector<HTMLFormElement>('[data-schedule-form]');
+  const nameEl = section.querySelector<HTMLInputElement>('[data-schedule-name]');
+  const ageEl = section.querySelector<HTMLInputElement>('[data-schedule-age]');
+  if (!modal || !turmaEl || !formEl || !nameEl || !ageEl) return;
+
+  const whatsappNumber = normalizeWhatsappNumber(
+    section.dataset.whatsappNumber || WHATSAPP_NUMBER_FALLBACK
+  );
+  let currentPayload: { turma: string; faixaEtaria: string; horarios: string } | null = null;
+
+  const openWhatsapp = (message: string) => {
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const closeModal = () => {
+    modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+    formEl.reset();
+  };
+
+  const openModal = (payload: { turma: string; faixaEtaria: string; horarios: string }) => {
+    currentPayload = payload;
+    turmaEl.textContent = payload.turma;
+    modal.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+    ageEl.focus();
+  };
+
+  section.addEventListener('click', (event) => {
+    const target = event.target as Element | null;
+    if (!target) return;
+
+    const closeBtn = target.closest('[data-schedule-close], [data-schedule-backdrop]');
+    if (closeBtn) {
+      closeModal();
+      return;
+    }
+
+    const trigger = target.closest<HTMLButtonElement>('[data-agendar-btn]');
+    if (!trigger) return;
+
+    openModal({
+      turma: trigger.dataset.turma ?? 'Turma',
+      faixaEtaria: trigger.dataset.faixaEtaria ?? '',
+      horarios: trigger.dataset.horarios ?? ''
+    });
+  });
+
+  formEl.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!currentPayload) return;
+
+    const age = Number(ageEl.value);
+    if (!Number.isFinite(age) || age < 2 || age > 90) {
+      ageEl.focus();
+      return;
+    }
+
+    const name = nameEl.value.trim();
+    const message = [
+      'Ola! Tudo bem?',
+      `Gostaria de agendar uma aula experimental para a turma ${currentPayload.turma}.`,
+      `Idade do aluno(a): ${age} anos.`,
+      name ? `Nome do aluno(a): ${name}.` : '',
+      currentPayload.horarios ? `Horarios da turma: ${currentPayload.horarios}.` : ''
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    openWhatsapp(message);
+    closeModal();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeModal();
+    }
+  });
+}
+
 export async function hydrateClassesSection() {
+  const aulasSection = document.querySelector<HTMLElement>('#aulas');
+  if (aulasSection) {
+    const apiWhatsapp = await fetchWhatsappNumberFromApi();
+    aulasSection.dataset.whatsappNumber = apiWhatsapp || normalizeWhatsappNumber(WHATSAPP_NUMBER_FALLBACK);
+  }
+
+  setupScheduleModal();
+
   const grid = document.querySelector<HTMLElement>('[data-classes-grid]');
   if (!grid) return;
 

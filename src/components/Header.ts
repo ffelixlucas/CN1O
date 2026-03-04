@@ -46,9 +46,11 @@ export function Header() {
         aria-label="Abrir menu de navegação"
         aria-expanded="false"
         aria-controls="menu-panel"
-        class="md:hidden text-3xl text-cor-texto hover:text-cor-primaria transition-colors"
+        class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-cor-texto/20 text-cor-texto hover:text-cor-primaria hover:border-cor-primaria/45 transition-colors"
       >
-        ☰
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
       </button>
     </nav>
 
@@ -76,7 +78,9 @@ export function Header() {
             class="bg-cor-primaria hover:bg-cor-destaque text-cor-escura px-8 py-4 md:px-9 md:py-5 rounded-full font-semibold uppercase tracking-wider text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/30 inline-flex items-center justify-center gap-3 group"
           >
             <span>Conheça a Escola</span>
-            <span class="group-hover:translate-x-1 transition-transform">↓</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-y-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 6V18M12 18L17 13M12 18L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </a>
 
           
@@ -87,7 +91,10 @@ export function Header() {
     <!-- Footer hero - ajustado com z-index mais alto e padding inferior -->
     <div class="relative z-20 flex justify-between items-center pt-4 pb-6 md:pb-8 px-6 max-w-7xl mx-auto w-full bg-gradient-to-t from-cor-fundo/20 to-transparent">
       <span data-anim="hero-hint" class="text-cor-texto/70 text-xs md:text-sm uppercase tracking-widest flex items-center gap-2">
-        <span class="animate-bounce">↓</span> Role para descobrir
+        <svg class="w-3.5 h-3.5 animate-bounce" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 6V18M12 18L17 13M12 18L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Role para descobrir</span>
       </span>
       
       <div data-anim="hero-indicators" class="flex gap-2 md:gap-3">
