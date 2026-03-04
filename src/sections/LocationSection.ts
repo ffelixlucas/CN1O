@@ -40,7 +40,7 @@ export function LocationSection() {
         </div>
 
         <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 md:gap-8 items-stretch">
-          <div class="rounded-3xl border border-cor-texto/10 bg-cor-secundaria/30 p-6 md:p-8">
+          <div class="surface-card rounded-3xl p-6 md:p-8">
             <div class="space-y-6">
               <div>
                 <p class="text-[11px] uppercase tracking-[0.14em] text-cor-primaria font-semibold">Endereco</p>
@@ -94,7 +94,7 @@ export function LocationSection() {
             </div>
           </div>
 
-          <div class="rounded-3xl border border-cor-texto/10 overflow-hidden min-h-[320px]">
+          <div class="surface-card-soft rounded-3xl overflow-hidden min-h-[320px]">
             <iframe
               title="Mapa - Capoeira Nota 10"
               src="${toMapsEmbedUrl(DEFAULT_MAP_QUERY)}"

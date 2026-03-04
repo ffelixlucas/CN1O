@@ -24,9 +24,9 @@ function renderList(items: NoticeItem[]): string {
   const [featured, ...others] = items;
 
   return `
-    <a data-route href="${escapeHtml(toNoticeDetailPath(featured.id))}" class="group block rounded-3xl border border-cor-texto/10 bg-cor-secundaria/25 overflow-hidden mb-8 hover:border-cor-primaria/35 transition-colors">
+    <a data-route href="${escapeHtml(toNoticeDetailPath(featured.id))}" class="surface-card group block rounded-3xl overflow-hidden mb-8 hover:border-cor-primaria/35 transition-colors">
       <div class="grid lg:grid-cols-2">
-        <div class="aspect-[16/10] lg:aspect-auto bg-cor-secundaria/30">
+        <div class="surface-card-soft aspect-[16/10] lg:aspect-auto">
           <img src="${escapeHtml(getNoticeImage(featured))}" alt="${escapeHtml(featured.titulo)}" class="w-full h-full object-cover" loading="lazy">
         </div>
         <div class="p-6 md:p-8">
@@ -50,8 +50,8 @@ function renderList(items: NoticeItem[]): string {
 
     <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
       ${others.map((item) => `
-        <a data-route href="${escapeHtml(toNoticeDetailPath(item.id))}" class="group block rounded-2xl border border-cor-texto/10 bg-cor-secundaria/30 overflow-hidden hover:border-cor-primaria/35 transition-colors">
-          <div class="aspect-[16/10] bg-cor-secundaria/30">
+        <a data-route href="${escapeHtml(toNoticeDetailPath(item.id))}" class="surface-card group block rounded-2xl overflow-hidden hover:border-cor-primaria/35 transition-colors">
+          <div class="surface-card-soft aspect-[16/10]">
             <img src="${escapeHtml(getNoticeImage(item))}" alt="${escapeHtml(item.titulo)}" class="w-full h-full object-cover" loading="lazy">
           </div>
           <div class="p-5">

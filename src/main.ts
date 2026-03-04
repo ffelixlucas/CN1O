@@ -6,6 +6,7 @@ import { initMobileMenu } from './components/mobileMenu/mobileMenuBehavior'
 import { initFloatingWhatsApp } from './components/FloatingWhatsApp'
 import { hydrateFooter } from './components/Footer'
 import { hydrateClassesSection } from './sections/ClassesSection'
+import { hydrateEventsSection } from './sections/EventsSection'
 import { hydrateNoticesSection } from './sections/NoticesSection'
 import { hydrateLocationSection } from './sections/LocationSection'
 import { hydrateNewsListPage } from './pages/NewsListPage'
@@ -71,6 +72,7 @@ async function renderAndInitialize() {
     applyHomeSeo()
     await Promise.all([
       hydrateClassesSection(),
+      hydrateEventsSection(),
       hydrateNoticesSection(),
       hydrateLocationSection(),
       hydrateFooter()

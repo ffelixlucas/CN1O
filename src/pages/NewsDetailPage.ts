@@ -24,8 +24,8 @@ function renderDetail(item: NoticeItem, source: NoticeItem[]): string {
     .filter(Boolean);
 
   return `
-    <article class="rounded-3xl border border-cor-texto/10 bg-cor-secundaria/25 overflow-hidden">
-      <div class="relative aspect-[16/8] bg-cor-secundaria/30 group">
+    <article class="surface-card rounded-3xl overflow-hidden">
+      <div class="surface-card-soft relative aspect-[16/8] group">
         <img
           src="${escapeHtml(getNoticeImage(item))}"
           alt="${escapeHtml(item.titulo)}"
@@ -54,7 +54,7 @@ function renderDetail(item: NoticeItem, source: NoticeItem[]): string {
         <h2 class="text-cor-texto text-xl md:text-2xl font-bold mb-4">Outras noticias</h2>
         <div class="grid md:grid-cols-2 gap-4">
           ${related.map((news) => `
-            <a data-route href="${escapeHtml(toNoticeDetailPath(news.id))}" class="group block rounded-2xl border border-cor-texto/10 bg-cor-secundaria/25 p-4 hover:border-cor-primaria/35 transition-colors">
+            <a data-route href="${escapeHtml(toNoticeDetailPath(news.id))}" class="surface-card group block rounded-2xl p-4 hover:border-cor-primaria/35 transition-colors">
               <p class="text-[11px] uppercase tracking-[0.14em] text-cor-texto/60">${escapeHtml(news.dataLabel)}</p>
               <h3 class="mt-2 text-cor-texto font-semibold leading-snug line-clamp-2">${escapeHtml(news.titulo)}</h3>
               <span class="mt-3 inline-flex items-center gap-2 text-cor-primaria text-sm font-semibold group-hover:translate-x-1 transition-transform">Ler <span>→</span></span>

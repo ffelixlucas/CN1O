@@ -201,7 +201,7 @@ function renderCards(items: ClassGroup[]): string {
       (aula) => `
             <article
               data-anim="class-card"
-              class="group relative rounded-3xl border border-cor-texto/10 bg-cor-secundaria/35 p-6 md:p-7 shadow-xl transition-transform duration-300 hover:-translate-y-1"
+              class="surface-card group relative rounded-3xl p-6 md:p-7 transition-transform duration-300 hover:-translate-y-1"
             >
               <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-cor-primaria/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
@@ -221,7 +221,7 @@ function renderCards(items: ClassGroup[]): string {
                   ${aula.horarios
                     .map(
                       (slot) => `
-                        <div class="rounded-xl border border-cor-texto/10 bg-cor-fundo/30 px-3 py-2.5">
+                        <div class="surface-card-soft rounded-xl px-3 py-2.5">
                           <div class="flex flex-col gap-1.5">
                             <p class="text-cor-texto/55 text-[11px] uppercase tracking-wider">Dias</p>
                             <p class="text-cor-texto/90 text-sm md:text-base font-medium">${formatDaysForUx(slot.dias)}</p>
@@ -288,23 +288,23 @@ export function ClassesSection() {
           </p>
         </div>
 
-        <div data-schedule-modal class="hidden fixed inset-0 z-[80] p-4 md:p-6">
+        <div data-schedule-modal class="hidden fixed inset-0 z-[80] p-0 md:p-6">
           <div data-schedule-backdrop class="absolute inset-0 bg-cor-fundo/85 backdrop-blur-sm"></div>
-          <div class="relative max-w-2xl mx-auto mt-6 md:mt-10 rounded-3xl border border-cor-texto/10 bg-cor-secundaria/70 shadow-2xl p-5 md:p-7">
+          <div class="surface-card relative w-full max-w-2xl mx-auto mt-16 md:mt-10 rounded-t-3xl md:rounded-3xl shadow-2xl p-4 md:p-7 max-h-[86vh] md:max-h-[88vh] overflow-y-auto pb-[max(env(safe-area-inset-bottom),1rem)]">
             <div class="flex items-start justify-between gap-4">
               <div>
                 <p class="text-[11px] uppercase tracking-[0.14em] text-cor-primaria font-semibold">Agendamento rapido</p>
-                <h3 class="text-cor-texto text-xl md:text-2xl font-black mt-2">Enviar mensagem no WhatsApp</h3>
+                <h3 class="text-cor-texto text-lg md:text-2xl font-black mt-2">Enviar mensagem no WhatsApp</h3>
               </div>
-              <button type="button" data-schedule-close class="text-cor-texto/70 hover:text-cor-primaria leading-none">
+              <button type="button" data-schedule-close class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-cor-texto/20 text-cor-texto/70 hover:text-cor-primaria hover:border-cor-primaria/40 leading-none">
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
                 </svg>
               </button>
             </div>
 
-            <form data-schedule-form class="mt-5 space-y-4">
-              <p class="text-cor-texto/80 text-sm md:text-base">
+            <form data-schedule-form class="mt-4 md:mt-5 space-y-4">
+              <p class="text-cor-texto/80 text-sm">
                 Turma selecionada:
                 <span data-schedule-turma class="font-semibold text-cor-texto"></span>
               </p>
@@ -395,7 +395,7 @@ function setupScheduleModal() {
     turmaEl.textContent = payload.turma;
     modal.classList.remove('hidden');
     document.body.classList.add('overflow-hidden');
-    ageEl.focus();
+    nameEl.focus({ preventScroll: true });
   };
 
   section.addEventListener('click', (event) => {

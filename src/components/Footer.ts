@@ -18,9 +18,15 @@ export function Footer() {
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-10">
           <div class="space-y-4">
-            <div class="inline-flex items-center justify-center rounded-2xl bg-white/95 p-3 shadow-[0_12px_28px_rgba(0,0,0,0.28)] ring-1 ring-white/70">
+            <a
+              href="https://pt.wikipedia.org/wiki/Grupo_Capoeira_Brasil"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Abrir página do Grupo Capoeira Brasil na Wikipedia"
+              class="inline-flex items-center justify-center rounded-2xl bg-white/95 p-3 shadow-[0_12px_28px_rgba(0,0,0,0.28)] ring-1 ring-white/70 hover:opacity-95 transition-opacity"
+            >
               <img src="/media/logo.png" class="h-24 md:h-28 w-auto" alt="Grupo Capoeira Brasil - Capoeira Nota 10">
-            </div>
+            </a>
             <p data-footer-tagline class="text-cor-texto/65 text-sm leading-relaxed">
               Arte, cultura e transformacao social atraves da capoeira.
             </p>
@@ -77,6 +83,35 @@ export function Footer() {
                 </a>
               </li>
               <li data-footer-city>Pinhais - PR</li>
+              <li class="pt-2">
+                <div class="flex items-center gap-3">
+                  <a
+                    href="https://www.instagram.com/espacocultural_cn10"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    class="inline-flex items-center justify-center w-8 h-8 rounded-full border border-cor-texto/20 text-cor-texto/75 hover:text-cor-primaria hover:border-cor-primaria/45 transition-colors"
+                  >
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.332.014 7.052.072 2.578.266.181 2.666.072 7.14.014 8.42 0 8.828 0 12c0 3.172.014 3.58.072 4.86C.18 21.334 2.578 23.734 7.052 23.928 8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.474-.194 6.871-2.594 6.98-7.068.058-1.28.072-1.688.072-4.86 0-3.172-.014-3.58-.072-4.86C23.82 2.666 21.422.266 16.948.072 15.668.014 15.259 0 12 0z"/>
+                      <circle cx="18.406" cy="5.594" r="1.44"/>
+                      <circle cx="12" cy="12" r="4"/>
+                    </svg>
+                  </a>
+
+                  <a
+                    href="https://www.facebook.com/espacoculturalcn10"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                    class="inline-flex items-center justify-center w-8 h-8 rounded-full border border-cor-texto/20 text-cor-texto/75 hover:text-cor-primaria hover:border-cor-primaria/45 transition-colors"
+                  >
+                    <svg class="w-4 h-4" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true">
+                      <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                    </svg>
+                  </a>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

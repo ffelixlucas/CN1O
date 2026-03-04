@@ -20,9 +20,9 @@ function getNoticeImage(item: NoticeItem): string {
 
 function renderNoticeTimelineItem(item: NoticeItem): string {
   return `
-    <a data-route href="${escapeHtml(toNoticeDetailPath(item.id))}" data-anim="notice-item" class="group block relative rounded-2xl border border-cor-texto/10 bg-cor-secundaria/30 p-4 md:p-5 hover:border-cor-primaria/35 transition-colors">
+    <a data-route href="${escapeHtml(toNoticeDetailPath(item.id))}" data-anim="notice-item" class="surface-card group block relative rounded-2xl p-4 md:p-5 hover:border-cor-primaria/35 transition-colors">
       <div class="absolute -left-8 top-5 hidden md:block w-3 h-3 rounded-full bg-cor-primaria shadow-[0_0_0_4px_rgba(243,200,73,0.2)]"></div>
-      <div class="rounded-xl overflow-hidden mb-3 bg-cor-secundaria/30">
+      <div class="surface-card-soft rounded-xl overflow-hidden mb-3">
         <img src="${escapeHtml(getNoticeImage(item))}" alt="${escapeHtml(item.titulo)}" class="w-full h-36 object-cover" loading="lazy">
       </div>
       <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-cor-texto/60">
@@ -55,8 +55,8 @@ function renderNotices(items: NoticeItem[]): string {
     </div>
 
     <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-6 md:gap-8 items-start">
-      <a data-route href="${escapeHtml(toNoticeDetailPath(featured.id))}" data-anim="notice-featured" class="group block rounded-3xl border border-cor-texto/10 bg-cor-secundaria/35 overflow-hidden hover:border-cor-primaria/35 transition-colors">
-        <div class="relative aspect-[16/10] bg-cor-secundaria/40">
+      <a data-route href="${escapeHtml(toNoticeDetailPath(featured.id))}" data-anim="notice-featured" class="surface-card group block rounded-3xl overflow-hidden hover:border-cor-primaria/35 transition-colors">
+        <div class="surface-card-soft relative aspect-[16/10]">
           <img src="${escapeHtml(getNoticeImage(featured))}" alt="${escapeHtml(featured.titulo)}" class="w-full h-full object-cover" loading="lazy">
           <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/85 via-cor-fundo/25 to-transparent"></div>
           <div class="absolute bottom-4 left-4 right-4 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.14em]">

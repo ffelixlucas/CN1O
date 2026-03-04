@@ -101,6 +101,17 @@ section::before {
   pointer-events: none;
 }
 
+.surface-card {
+  background: #1d3128;
+  border: 1px solid rgba(253, 245, 221, 0.12);
+}
+
+
+.surface-card-soft {
+  background: transparent;
+}
+
+
 @media (max-width: 768px) {
   h1 {
     font-size: 2.5rem;

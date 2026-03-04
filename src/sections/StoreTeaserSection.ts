@@ -8,7 +8,7 @@ export function StoreTeaserSection() {
       </div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <div class="rounded-3xl border border-cor-texto/10 bg-cor-secundaria/30 p-6 md:p-10">
+        <div class="surface-card rounded-3xl p-6 md:p-10">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div class="max-w-2xl">
               <span class="text-cor-primaria text-xs md:text-sm tracking-[0.18em] uppercase font-semibold">Loja oficial</span>
