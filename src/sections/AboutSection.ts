@@ -33,7 +33,7 @@ export function AboutSection() {
             <div class="absolute inset-8 rounded-3xl bg-gradient-to-br from-cor-primaria/10 via-cor-secundaria/8 to-transparent blur-2xl"></div>
             <div class="relative">
               <img
-                src="/media/professor2.png"
+                src="/media/about.png"
                 class="w-full object-contain max-h-[620px] mx-auto"
                 alt="Professor da Capoeira Nota 10"
               >

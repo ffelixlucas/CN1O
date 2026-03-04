@@ -1,4 +1,4 @@
-import { NAV_LINKS, STORE_LINK } from '../data/constants';
+import { NAV_LINKS } from '../data/constants';
 import { fetchOrganizationProfile } from '../data/organization';
 
 function onlyDigits(value: string): string {
@@ -44,7 +44,7 @@ export function Footer() {
           <div>
             <h4 class="text-cor-primaria text-xs uppercase tracking-[0.16em] font-semibold mb-4">Acessos</h4>
             <ul class="space-y-2 text-sm text-cor-texto/70">
-              <li><a href="${STORE_LINK}" class="hover:text-cor-primaria transition-colors">Loja online</a></li>
+              <li><a href="#loja" class="hover:text-cor-primaria transition-colors">Loja online (em breve)</a></li>
               <li><a data-footer-pre-matricula href="https://capoeira-base.vercel.app/matricula/cn10" class="hover:text-cor-primaria transition-colors">Pre-matricula</a></li>
               <li><a href="/noticias" data-route class="hover:text-cor-primaria transition-colors">Blog de noticias</a></li>
             </ul>
