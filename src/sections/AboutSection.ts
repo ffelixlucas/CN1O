@@ -1,15 +1,9 @@
 export function AboutSection() {
   return `
     <section id="sobre" data-anim="about" class="relative py-24 md:py-32 bg-cor-fundo">
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute inset-0 bg-cor-fundo/35"></div>
-        <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-cor-primaria/10 blur-3xl"></div>
-        <div class="absolute bottom-8 -right-20 w-80 h-80 rounded-full bg-cor-secundaria/14 blur-[72px]"></div>
-      </div>
-
       <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-12 md:gap-16 items-start">
-          <div class="max-w-2xl">
+        <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-12 md:gap-16 items-center">
+          <div class="max-w-2xl md:py-6">
             <div data-anim="about-line" class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-4"></div>
             <h2 data-anim="about-title" class="text-3xl sm:text-4xl md:text-5xl font-black text-cor-texto tracking-tight leading-tight">
               QUEM SOMOS
@@ -36,7 +30,7 @@ export function AboutSection() {
           </div>
 
           <div data-anim="about-image" class="relative md:pt-3">
-            <div class="absolute -inset-4 rounded-3xl bg-gradient-to-br from-cor-primaria/20 via-cor-secundaria/20 to-transparent blur-2xl"></div>
+            <div class="absolute inset-8 rounded-3xl bg-gradient-to-br from-cor-primaria/10 via-cor-secundaria/8 to-transparent blur-2xl"></div>
             <div class="relative">
               <img
                 src="/media/professor2.png"

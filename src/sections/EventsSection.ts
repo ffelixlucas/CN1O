@@ -258,11 +258,6 @@ function setupEventModal(section: HTMLElement, eventsById: Map<string, EventItem
 export function EventsSection() {
   return `
     <section id="eventos" class="relative py-24 md:py-32 bg-cor-fundo scroll-mt-24 md:scroll-mt-28 overflow-hidden">
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute inset-0 bg-gradient-to-b from-cor-fundo via-cor-fundo to-cor-secundaria/20"></div>
-        <div class="absolute -top-12 right-0 w-72 h-72 rounded-full bg-cor-primaria/10 blur-3xl"></div>
-      </div>
-
       <div class="relative z-10 max-w-7xl mx-auto px-6">
         <div class="max-w-3xl mb-10 md:mb-12">
           <div class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-4"></div>

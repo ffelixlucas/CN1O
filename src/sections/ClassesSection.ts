@@ -257,11 +257,6 @@ function renderCards(items: ClassGroup[]): string {
 export function ClassesSection() {
   return `
     <section id="aulas" data-anim="classes" class="relative py-24 md:py-32 bg-cor-fundo">
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute inset-0 bg-cor-fundo/35"></div>
-        <div class="absolute top-24 right-0 w-80 h-80 rounded-full bg-cor-primaria/9 blur-3xl"></div>
-      </div>
-
       <div class="relative z-10 max-w-7xl mx-auto px-6">
         <div class="max-w-3xl mb-12 md:mb-16">
           <div data-anim="classes-line" class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-4"></div>

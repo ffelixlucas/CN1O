@@ -57,7 +57,7 @@ export function MobileMenu() {
         </nav>
 
         <!-- Social links - versão clean e premium (sem YouTube) -->
-<div class="px-8 pb-16 mt-auto border-t border-cor-primaria/10 pt-12">
+<div class="px-8 pb-14 md:pb-16 mt-auto border-t border-cor-primaria/10 pt-8 md:pt-12 -translate-y-2 md:translate-y-0">
   <p class="text-center text-cor-texto/60 text-sm font-medium uppercase tracking-[0.4em] mb-5">
     Siga-nos
   </p>

@@ -48,7 +48,7 @@ export function Header() {
         aria-label="Abrir menu de navegação"
         aria-expanded="false"
         aria-controls="menu-panel"
-        class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-cor-texto/20 text-cor-texto hover:text-cor-primaria hover:border-cor-primaria/45 transition-colors"
+        class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-cor-primaria/35 text-cor-primaria hover:text-cor-destaque hover:border-cor-destaque/55 transition-colors"
       >
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>

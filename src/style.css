@@ -84,7 +84,7 @@ section {
   overflow: hidden;
 }
 
-section::before {
+#sobre::before {
   content: '';
   position: absolute;
   top: 0;

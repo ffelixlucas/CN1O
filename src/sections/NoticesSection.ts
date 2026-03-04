@@ -90,12 +90,6 @@ function renderNotices(items: NoticeItem[]): string {
 export function NoticesSection() {
   return `
     <section id="noticias" data-anim="notices" class="relative py-24 md:py-32 bg-cor-fundo scroll-mt-24 md:scroll-mt-28">
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute inset-0 bg-cor-fundo/35"></div>
-        <div class="absolute -top-8 left-0 w-72 h-72 rounded-full bg-cor-primaria/8 blur-3xl"></div>
-        <div class="absolute -bottom-10 right-0 w-80 h-80 rounded-full bg-cor-secundaria/25 blur-3xl"></div>
-      </div>
-
       <div class="relative z-10 max-w-7xl mx-auto px-6">
         <div class="max-w-3xl mb-12 md:mb-16">
           <div data-anim="notices-line" class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-4"></div>

@@ -26,7 +26,8 @@ export function LocationSection() {
   return `
     <section id="localizacao" class="relative py-24 md:py-32 bg-cor-fundo scroll-mt-24 md:scroll-mt-28 overflow-hidden">
       <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute inset-0 bg-gradient-to-b from-cor-fundo via-cor-fundo to-cor-secundaria/20"></div>
+        <div class="absolute left-[30%] top-[28%] w-40 h-40 rounded-full bg-cor-primaria/7 blur-[84px]"></div>
+        <div class="absolute left-[64%] top-[62%] w-48 h-48 rounded-full bg-cor-secundaria/10 blur-[96px]"></div>
       </div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-6">
