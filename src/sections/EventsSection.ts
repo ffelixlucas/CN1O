@@ -35,7 +35,7 @@ function toGoogleMapsUrl(address: string): string {
   return `https://www.google.com/maps/search/?q=${encodeURIComponent(address)}`;
 }
 
-function renderEventCard(event: EventItem): string {
+function renderEventCard(event: EventItem, isNextEvent: boolean): string {
   const canSubscribe = Boolean(event.inscricaoUrl) && !event.isPast;
   const eventDateLabel = `${event.date}${event.time ? ` • ${event.time}` : ''}`;
 
@@ -44,6 +44,9 @@ function renderEventCard(event: EventItem): string {
       <div class="relative h-44 md:h-52">
         <img src="${escapeHtml(event.image)}" alt="${escapeHtml(event.title)}" class="w-full h-full object-cover ${event.isPast ? 'grayscale' : ''}" style="object-position:${event.imageFocusX}% ${event.imageFocusY}%;" loading="lazy">
         <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/85 via-cor-fundo/30 to-transparent"></div>
+        ${isNextEvent && !event.isPast
+          ? `<div class="absolute top-3 left-3"><span class="px-2.5 py-1 rounded-full text-[10px] uppercase tracking-[0.12em] font-extrabold bg-cor-primaria/18 text-cor-primaria border border-cor-primaria/55">PROXIMO EVENTO</span></div>`
+          : ''}
         <div class="absolute bottom-3 left-3">
           <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cor-fundo/85 border border-cor-primaria/45 text-cor-primaria text-[11px] font-bold tracking-[0.1em] uppercase">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -104,10 +107,12 @@ function renderEvents(items: EventItem[]): string {
     return '<p class="text-cor-texto/70 text-sm md:text-base">Nenhum evento confirmado no momento.</p>';
   }
 
+  const nextIndex = items.findIndex((item) => !item.isPast);
+
   return `
     <div class="relative">
       <div data-events-track class="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        ${items.map((event) => renderEventCard(event)).join('')}
+        ${items.map((event, index) => renderEventCard(event, nextIndex !== -1 && index === nextIndex)).join('')}
       </div>
 
       <div class="mt-5 flex items-center justify-center md:justify-end gap-2">
