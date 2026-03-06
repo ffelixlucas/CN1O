@@ -248,7 +248,10 @@ export function normalizeEvents(data: unknown): EventItem[] {
     .filter((item): item is EventItem => item !== null)
     .sort((a, b) => {
       if (a.isPast !== b.isPast) return a.isPast ? 1 : -1;
-      return a.timestamp - b.timestamp;
+      // Abertos: do mais proximo para o mais distante.
+      if (!a.isPast && !b.isPast) return a.timestamp - b.timestamp;
+      // Encerrados: do mais recente para o mais antigo.
+      return b.timestamp - a.timestamp;
     });
 }
 

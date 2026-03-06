@@ -38,8 +38,13 @@ function filterItems(items: EventItem[], tab: EventTab, query: string): EventIte
       return text.includes(q);
     })
     .sort((a, b) => {
+      if (tab === 'abertos') return a.timestamp - b.timestamp;
+      if (tab === 'encerrados') return b.timestamp - a.timestamp;
+
+      // Aba "todos": abertos primeiro (mais proximos), depois encerrados (mais recentes).
       if (a.isPast !== b.isPast) return a.isPast ? 1 : -1;
-      return a.timestamp - b.timestamp;
+      if (!a.isPast && !b.isPast) return a.timestamp - b.timestamp;
+      return b.timestamp - a.timestamp;
     });
 }
 
@@ -174,4 +179,3 @@ export async function hydrateEventsListPage(prefetched?: EventItem[]) {
     listRoot.innerHTML = '<p class="text-red-300/80 text-sm md:text-base">Nao foi possivel carregar os eventos agora.</p>';
   }
 }
-
