@@ -58,9 +58,19 @@ function firstNonEmptyString(values: unknown[]): string | null {
   return null;
 }
 
+function normalizeAgendaDateString(rawDate: string): string {
+  const raw = rawDate.trim();
+  // A API da agenda envia DATETIME com sufixo ".000Z", mas o valor foi cadastrado em horario local.
+  // Removemos o "Z" artificial para evitar deslocamento de -3h no navegador.
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.000Z$/.test(raw)) {
+    return raw.replace(/\.000Z$/, '');
+  }
+  return raw;
+}
+
 function normalizeTimestamp(rawDate: string | null, fallback: number): number {
   if (!rawDate) return fallback;
-  const parsed = Date.parse(rawDate);
+  const parsed = Date.parse(normalizeAgendaDateString(rawDate));
   return Number.isNaN(parsed) ? fallback : parsed;
 }
 
