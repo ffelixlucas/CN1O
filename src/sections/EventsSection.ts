@@ -35,9 +35,28 @@ function toGoogleMapsUrl(address: string): string {
   return `https://www.google.com/maps/search/?q=${encodeURIComponent(address)}`;
 }
 
+function formatCountdown(inscricoesAteTs: number | null): string | null {
+  if (!inscricoesAteTs || !Number.isFinite(inscricoesAteTs)) return null;
+  const diff = Math.max(0, inscricoesAteTs - Date.now());
+  if (diff <= 0) return 'encerrado';
+  const totalSeconds = Math.floor(diff / 1000);
+  const dias = Math.floor(totalSeconds / 86_400);
+  const horas = Math.floor((totalSeconds % 86_400) / 3_600);
+  const segundos = totalSeconds % 60;
+  return `${dias}d ${horas}h ${segundos}s`;
+}
+
 function renderEventCard(event: EventItem, isNextEvent: boolean): string {
   const canSubscribe = Boolean(event.inscricaoUrl) && !event.isPast;
   const eventDateLabel = `${event.date}${event.time ? ` • ${event.time}` : ''}`;
+  const countdown = formatCountdown(event.inscricoesAteTs);
+  const showMeta = Boolean(event.inscricaoUrl) && Boolean(event.limiteInscritos);
+  const inscritosLabel = event.limiteInscritos
+    ? `${event.inscritosAtual}/${event.limiteInscritos}`
+    : `${event.inscritosAtual}`;
+  const inscricoesAteDia = event.inscricoesAteLabel
+    ? event.inscricoesAteLabel.split('•')[0]?.trim() || event.inscricoesAteLabel
+    : null;
 
   return `
     <article data-event-card data-event-id="${escapeHtml(event.id)}" class="surface-card flex-[0_0_88%] sm:flex-[0_0_72%] lg:flex-[0_0_calc(50%-0.75rem)] xl:flex-[0_0_calc(33.333%-1rem)] snap-start rounded-2xl overflow-hidden ${event.isPast ? 'opacity-85' : ''}">
@@ -65,18 +84,24 @@ function renderEventCard(event: EventItem, isNextEvent: boolean): string {
       <div class="p-5 md:p-6">
         <h3 class="text-cor-texto text-lg md:text-xl font-bold leading-tight">${escapeHtml(event.title)}</h3>
         <p class="mt-3 text-cor-texto/75 text-sm md:text-base leading-relaxed line-clamp-3">${linkifyText(event.description)}</p>
-        ${(event.inscricoesAteLabel || event.limiteInscritos)
-          ? `
-          <div class="mt-4 flex flex-wrap gap-2">
-            ${event.inscricoesAteLabel
-              ? `<span class="inline-flex items-center px-2.5 py-1 rounded-full border border-cor-primaria/35 text-cor-texto/85 text-[11px] md:text-xs">Inscricoes ate: ${escapeHtml(event.inscricoesAteLabel)}</span>`
-              : ''}
-            ${event.limiteInscritos
-              ? `<span class="inline-flex items-center px-2.5 py-1 rounded-full border border-cor-primaria/35 text-cor-texto/85 text-[11px] md:text-xs">Limite: ${event.limiteInscritos} inscritos</span>`
-              : ''}
-          </div>
-        `
-          : ''}
+        <div class="mt-2 min-h-[16px] text-[11px]">
+          ${showMeta
+            ? `
+              <div class="rounded-xl border border-[#8fffc8]/20 bg-cor-fundo/25 px-2.5 py-2 space-y-1.5">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-cor-texto/78">
+                  <p>Inscritos <strong class="text-[#8fffc8]">${escapeHtml(inscritosLabel)}</strong></p>
+                  ${inscricoesAteDia ? `<p>Inscricoes ate dia <strong class="text-cor-texto/90">${escapeHtml(inscricoesAteDia)}</strong></p>` : ''}
+                  <p>Acontece em <strong class="text-cor-texto/90">${escapeHtml(eventDateLabel)}</strong></p>
+                </div>
+                <div class="flex justify-center">
+                  <span class="inline-flex items-center rounded-full border border-[#8fffc8]/35 bg-cor-fundo/55 px-2 py-0.5 font-bold text-[#8fffc8] tabular-nums tracking-[0.04em]">
+                    <span data-event-countdown data-deadline="${event.inscricoesAteTs || ''}">${escapeHtml(countdown ? `Evento em ${countdown}` : 'Evento encerrado')}</span>
+                  </span>
+                </div>
+              </div>
+            `
+            : '<span class="block">&nbsp;</span>'}
+        </div>
 
         <div class="mt-5 flex items-center gap-2">
           <button
@@ -91,11 +116,11 @@ function renderEventCard(event: EventItem, isNextEvent: boolean): string {
 
           ${canSubscribe
             ? `
-            <a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="ml-auto inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cor-primaria text-cor-escura text-xs md:text-sm font-bold hover:bg-cor-destaque transition-colors">
+            <a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="ml-auto inline-flex h-10 items-center gap-2 px-4 rounded-full bg-cor-primaria text-cor-escura text-xs md:text-sm font-bold hover:bg-cor-destaque transition-colors">
               Inscrever
             </a>
           `
-            : `<span class="ml-auto text-cor-texto/60 text-xs md:text-sm">${event.isPast ? 'Evento finalizado' : 'Sem inscricao'}</span>`}
+            : `<span class="ml-auto inline-flex h-10 items-center rounded-full border border-cor-texto/20 px-4 text-cor-texto/60 text-xs md:text-sm">${event.isPast ? 'Evento finalizado' : 'Sem inscricao'}</span>`}
         </div>
       </div>
     </article>
@@ -189,6 +214,27 @@ function setupEventsSlider(section: HTMLElement) {
   const getStep = () => Math.max(280, Math.floor(track.clientWidth * 0.9));
   prevBtn.addEventListener('click', () => track.scrollBy({ left: -getStep(), behavior: 'smooth' }));
   nextBtn.addEventListener('click', () => track.scrollBy({ left: getStep(), behavior: 'smooth' }));
+}
+
+function setupCountdown(section: HTMLElement) {
+  const update = () => {
+    const nodes = section.querySelectorAll<HTMLElement>('[data-event-countdown]');
+    nodes.forEach((node) => {
+      const raw = node.getAttribute('data-deadline');
+      const ts = raw ? Number(raw) : Number.NaN;
+      if (!Number.isFinite(ts)) return;
+      const label = formatCountdown(ts);
+      node.textContent = label ? `Evento em ${label}` : 'Evento encerrado';
+    });
+  };
+
+  update();
+  const previous = section.dataset.eventsCountdownInterval;
+  if (previous) {
+    window.clearInterval(Number(previous));
+  }
+  const intervalId = window.setInterval(update, 1_000);
+  section.dataset.eventsCountdownInterval = String(intervalId);
 }
 
 function setupEventModal(section: HTMLElement, eventsById: Map<string, EventItem>) {
@@ -285,6 +331,14 @@ export function EventsSection() {
           <p class="mt-4 text-cor-texto/70 text-base md:text-lg max-w-2xl">
             Eventos, rodas e encontros especiais para fortalecer a comunidade.
           </p>
+          <a
+            data-route
+            href="/eventos"
+            class="mt-4 inline-flex items-center gap-2 text-cor-primaria font-semibold text-sm md:text-base hover:translate-x-1 transition-transform"
+          >
+            Ver todos eventos
+            <span>→</span>
+          </a>
         </div>
 
         <div data-events-root>
@@ -304,5 +358,6 @@ export async function hydrateEventsSection() {
   const events = await fetchEvents();
   root.innerHTML = renderEvents(events);
   setupEventsSlider(section);
+  setupCountdown(section);
   setupEventModal(section, new Map(events.map((event) => [event.id, event])));
 }

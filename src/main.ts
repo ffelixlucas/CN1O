@@ -11,8 +11,9 @@ import { hydrateNoticesSection } from './sections/NoticesSection'
 import { hydrateLocationSection } from './sections/LocationSection'
 import { hydrateNewsListPage } from './pages/NewsListPage'
 import { hydrateNewsDetailPage } from './pages/NewsDetailPage'
+import { hydrateEventsListPage } from './pages/EventsListPage'
 import { fetchNotices, findNoticeById } from './data/notices'
-import { applyHomeSeo, applyNewsDetailSeo, applyNewsListSeo } from './seo'
+import { applyEventsListSeo, applyHomeSeo, applyNewsDetailSeo, applyNewsListSeo } from './seo'
 
 document.documentElement.classList.add('js-loading')
 
@@ -88,6 +89,11 @@ async function renderAndInitialize() {
     const notices = await fetchNotices()
     applyNewsListSeo()
     await hydrateNewsListPage(notices)
+  }
+
+  if (route.name === 'events-list') {
+    applyEventsListSeo()
+    await hydrateEventsListPage()
   }
 
   if (route.name === 'news-detail') {

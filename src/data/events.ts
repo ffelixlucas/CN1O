@@ -13,6 +13,7 @@ export type ApiEventItem = {
   imagem_url?: string | null;
   valor?: string | number | null;
   com_inscricao?: boolean | number | null;
+  total_inscritos?: string | number | null;
   configuracoes?: Record<string, unknown> | string | null;
 };
 
@@ -30,7 +31,9 @@ export type EventItem = {
   whatsappUrl: string | null;
   inscricaoUrl: string | null;
   inscricoesAteLabel: string | null;
+  inscricoesAteTs: number | null;
   limiteInscritos: number | null;
+  inscritosAtual: number;
   imageFocusX: number;
   imageFocusY: number;
   timestamp: number;
@@ -204,6 +207,7 @@ export function normalizeEvents(data: unknown): EventItem[] {
               : `• ${TIME_FORMATTER.format(new Date(inscricoesAteTs))}`
           }`.trim();
       const limiteInscritos = toPositiveInteger(configuracoes.limite_inscritos);
+      const inscritosAtual = toPositiveInteger(item.total_inscritos) ?? 0;
 
       return {
         id: String(item.id ?? `evento-${index}`),
@@ -222,7 +226,9 @@ export function normalizeEvents(data: unknown): EventItem[] {
         whatsappUrl,
         inscricaoUrl: normalizeInscricaoUrl(item),
         inscricoesAteLabel,
+        inscricoesAteTs: Number.isNaN(inscricoesAteTs) ? null : inscricoesAteTs,
         limiteInscritos,
+        inscritosAtual,
         imageFocusX,
         imageFocusY,
         timestamp,

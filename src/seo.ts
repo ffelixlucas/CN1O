@@ -96,6 +96,16 @@ export function applyNewsListSeo(): void {
   removeDynamicStructuredData();
 }
 
+export function applyEventsListSeo(): void {
+  applySeo({
+    title: 'Eventos | Capoeira Nota 10',
+    description:
+      'Veja todos os eventos da Capoeira Nota 10 com filtros por periodo, inscricoes e contagem regressiva em tempo real.',
+    path: '/eventos'
+  });
+  removeDynamicStructuredData();
+}
+
 export function applyNewsDetailSeo(item: NoticeItem): void {
   const path = `/noticias/${encodeURIComponent(item.id)}`;
   const description = item.resumo || 'Notícia da Capoeira Nota 10.';
@@ -127,4 +137,3 @@ export function applyNewsDetailSeo(item: NoticeItem): void {
     mainEntityOfPage: absoluteUrl(path)
   });
 }
-
