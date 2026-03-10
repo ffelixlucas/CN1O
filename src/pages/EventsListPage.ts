@@ -12,6 +12,29 @@ function escapeHtml(value: string): string {
     .replaceAll("'", '&#39;');
 }
 
+function linkifyText(value: string): string {
+  const escaped = escapeHtml(value);
+  const withLinks = escaped.replace(
+    /(https?:\/\/[^\s<]+)/g,
+    '<a href="$1" target="_blank" rel="noopener noreferrer" class="underline decoration-cor-primaria/60 hover:text-cor-primaria break-all">$1</a>'
+  );
+  return withLinks.replace(/\n/g, '<br>');
+}
+
+function onlyDigits(value: string): string {
+  return value.replace(/\D/g, '');
+}
+
+function getEventWhatsappHref(event: EventItem): string | null {
+  if (event.whatsappUrl) return event.whatsappUrl;
+  if (!event.telefoneContato) return null;
+  return `https://wa.me/55${onlyDigits(event.telefoneContato)}`;
+}
+
+function toGoogleMapsUrl(address: string): string {
+  return `https://www.google.com/maps/search/?q=${encodeURIComponent(address)}`;
+}
+
 function normalizeText(value: string): string {
   return value.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 }
@@ -53,7 +76,7 @@ function renderCard(item: EventItem): string {
   const canSubscribe = Boolean(item.inscricaoUrl) && !item.isPast;
 
   return `
-    <article class="surface-card rounded-2xl overflow-hidden">
+    <article data-event-card data-event-id="${escapeHtml(item.id)}" class="surface-card rounded-2xl overflow-hidden">
       <div class="relative h-44">
         <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" class="w-full h-full object-cover ${item.isPast ? 'grayscale' : ''}" style="object-position:${item.imageFocusX}% ${item.imageFocusY}%;" loading="lazy">
         <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/90 via-cor-fundo/45 to-transparent"></div>
@@ -80,9 +103,14 @@ function renderCard(item: EventItem): string {
         ` : ''}
 
         <div class="mt-4 flex items-center justify-between gap-2">
-          ${item.inscricaoUrl
-            ? `<a href="${escapeHtml(item.inscricaoUrl)}" target="_blank" rel="noopener noreferrer" class="text-sm text-cor-primaria font-semibold hover:underline">Ver detalhes →</a>`
-            : '<span class="text-sm text-cor-texto/55 font-semibold">Detalhes indisponiveis</span>'}
+          <button
+            type="button"
+            data-open-event
+            data-event-id="${escapeHtml(item.id)}"
+            class="text-sm text-cor-primaria font-semibold hover:underline"
+          >
+            Ver detalhes →
+          </button>
           ${canSubscribe
             ? `<a href="${escapeHtml(item.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center rounded-full bg-cor-primaria px-4 text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Inscrever</a>`
             : `<span class="inline-flex h-10 items-center rounded-full border border-cor-texto/20 px-4 text-cor-texto/60 text-sm">${item.isPast ? 'Finalizado' : 'Sem inscricao'}</span>`}
@@ -122,6 +150,97 @@ function bindCountdown(root: HTMLElement): number {
   return window.setInterval(update, 1000);
 }
 
+function renderModal(event: EventItem): string {
+  const canSubscribe = Boolean(event.inscricaoUrl) && !event.isPast;
+  const hasAddress = Boolean(event.endereco);
+  const body = event.fullDescription || event.description;
+  const eventDateLabel = `${event.date}${event.time ? ` • ${event.time}` : ''}`;
+  const whatsappHref = getEventWhatsappHref(event);
+
+  return `
+    <div data-event-modal class="fixed inset-0 z-[100] hidden">
+      <div data-event-modal-backdrop class="absolute inset-0 bg-cor-fundo/88 backdrop-blur-sm"></div>
+      <div class="relative z-10 mx-auto mt-8 md:mt-12 w-[94%] md:w-full max-w-3xl max-h-[86vh] overflow-y-auto rounded-3xl surface-card p-4 md:p-6">
+        <button type="button" data-event-modal-close class="absolute top-3 right-3 inline-flex items-center justify-center w-9 h-9 rounded-full border border-cor-texto/20 text-cor-texto/70 hover:text-cor-primaria hover:border-cor-primaria/40 leading-none">
+          <span aria-hidden="true">×</span>
+        </button>
+
+        <div class="rounded-2xl overflow-hidden">
+          <img data-event-modal-image src="${escapeHtml(event.image)}" alt="${escapeHtml(event.title)}" class="w-full max-h-[320px] object-cover cursor-zoom-in" style="object-position:${event.imageFocusX}% ${event.imageFocusY}%;">
+        </div>
+
+        <div class="mt-4">
+          <h3 class="text-cor-texto text-xl md:text-3xl font-black leading-tight">${escapeHtml(event.title)}</h3>
+          <p class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cor-fundo/80 border border-cor-primaria/40 text-cor-primaria text-xs md:text-sm font-bold uppercase tracking-[0.12em]">
+            ${escapeHtml(eventDateLabel)}
+          </p>
+          <p class="mt-4 text-cor-texto/85 text-sm md:text-base leading-relaxed">${linkifyText(body)}</p>
+
+          <div class="mt-4 space-y-2 text-sm md:text-base text-cor-texto/85">
+            ${event.local ? `<p><strong class="text-cor-primaria">Local:</strong> ${escapeHtml(event.local)}</p>` : ''}
+            ${hasAddress ? `<p><strong class="text-cor-primaria">Endereco:</strong> <a href="${escapeHtml(toGoogleMapsUrl(event.endereco!))}" target="_blank" rel="noopener noreferrer" class="underline decoration-cor-primaria/60 hover:text-cor-primaria">${escapeHtml(event.endereco!)}</a></p>` : ''}
+            ${whatsappHref ? `<p><strong class="text-cor-primaria">Contato:</strong> <a href="${escapeHtml(whatsappHref)}" target="_blank" rel="noopener noreferrer" class="hover:text-cor-primaria">${event.whatsappUrl ? 'Grupo de WhatsApp' : escapeHtml(event.telefoneContato || '')}</a></p>` : ''}
+            ${event.inscricoesAteLabel ? `<p><strong class="text-cor-primaria">Inscricoes ate:</strong> ${escapeHtml(event.inscricoesAteLabel)}</p>` : ''}
+            ${event.limiteInscritos ? `<p><strong class="text-cor-primaria">Limite de inscritos:</strong> ${event.limiteInscritos}</p>` : ''}
+          </div>
+
+          <div class="mt-5 flex flex-wrap items-center gap-3">
+            ${canSubscribe
+              ? `<a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cor-primaria text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Fazer inscricao <span>→</span></a>`
+              : `<span class="text-cor-texto/65 text-sm">${event.isPast ? 'Evento finalizado' : 'Evento sem inscricao obrigatoria'}</span>`}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function setupEventModal(
+  listRoot: HTMLElement,
+  modalRoot: HTMLElement,
+  eventsById: Map<string, EventItem>
+) {
+  if (listRoot.dataset.eventsModalBound === '1') return;
+  listRoot.dataset.eventsModalBound = '1';
+
+  const closeModal = () => {
+    const modal = modalRoot.querySelector<HTMLElement>('[data-event-modal]');
+    if (modal) modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  };
+
+  const openModal = (eventItem: EventItem) => {
+    modalRoot.innerHTML = renderModal(eventItem);
+    const modal = modalRoot.querySelector<HTMLElement>('[data-event-modal]');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  };
+
+  listRoot.addEventListener('click', (evt) => {
+    const target = evt.target as Element | null;
+    if (!target) return;
+
+    const trigger = target.closest<HTMLElement>('[data-open-event], [data-event-card]');
+    if (trigger) {
+      if (target.closest('a')) return;
+      const eventId = trigger.getAttribute('data-event-id');
+      if (!eventId) return;
+      const eventItem = eventsById.get(eventId);
+      if (!eventItem) return;
+      openModal(eventItem);
+      return;
+    }
+
+    const close = target.closest('[data-event-modal-close], [data-event-modal-backdrop]');
+    if (close) closeModal();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeModal();
+  });
+}
+
 export function EventsListPage() {
   return `
     <main class="min-h-screen bg-cor-fundo text-cor-texto py-20 md:py-24">
@@ -135,6 +254,7 @@ export function EventsListPage() {
         <div data-events-list class="mt-8">
           <p class="text-cor-texto/70">Carregando eventos...</p>
         </div>
+        <div data-events-modal-root></div>
       </div>
     </main>
   `;
@@ -143,10 +263,12 @@ export function EventsListPage() {
 export async function hydrateEventsListPage(prefetched?: EventItem[]) {
   const toolbarRoot = document.querySelector<HTMLElement>('[data-events-toolbar]');
   const listRoot = document.querySelector<HTMLElement>('[data-events-list]');
-  if (!toolbarRoot || !listRoot) return;
+  const modalRoot = document.querySelector<HTMLElement>('[data-events-modal-root]');
+  if (!toolbarRoot || !listRoot || !modalRoot) return;
 
   try {
     const source = prefetched ?? (await fetchEvents());
+    setupEventModal(listRoot, modalRoot, new Map(source.map((event) => [event.id, event])));
     let tab: EventTab = 'todos';
     let query = '';
     let timerId = -1;
