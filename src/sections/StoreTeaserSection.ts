@@ -1,3 +1,5 @@
+import { STORE_LINK } from '../data/constants';
+
 export function StoreTeaserSection() {
   return `
     <section id="loja" class="relative py-20 md:py-24 bg-cor-fundo scroll-mt-24 md:scroll-mt-28 overflow-hidden">
@@ -26,14 +28,19 @@ export function StoreTeaserSection() {
           <div class="relative z-10 p-5 sm:p-6 md:p-10 md:h-full max-w-2xl flex flex-col justify-center">
               <div class="self-start rounded-2xl bg-[#081711b8] p-4 sm:p-5 md:bg-transparent md:p-0">
               <span class="text-cor-primaria text-xs md:text-sm tracking-[0.18em] uppercase font-semibold">Loja oficial</span>
-              <h2 class="mt-2 text-xl sm:text-2xl md:text-4xl font-black text-cor-texto tracking-tight">LOJA TEMPORARIAMENTE INDISPONIVEL</h2>
+              <h2 class="mt-2 text-xl sm:text-2xl md:text-4xl font-black text-cor-texto tracking-tight">LOJA ONLINE CN10</h2>
               <p class="mt-2 md:mt-3 text-cor-texto/90 text-sm md:text-base max-w-xl">
-                Estamos repondo o estoque. Em breve a loja estara ativa novamente.
+                Uniformes e produtos oficiais em um só lugar. Escolha o item e finalize pela loja online.
               </p>
 
-              <span class="self-start mt-4 md:mt-6 inline-flex items-center justify-center gap-2 bg-cor-texto/12 text-cor-texto/85 px-5 md:px-6 py-2.5 md:py-3 rounded-full font-bold uppercase tracking-wider text-xs md:text-sm border border-cor-texto/25">
-                Em breve
-              </span>
+              <a
+                href="${STORE_LINK}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="self-start mt-4 md:mt-6 inline-flex items-center justify-center gap-2 bg-cor-primaria text-cor-fundo px-5 md:px-6 py-2.5 md:py-3 rounded-full font-bold uppercase tracking-wider text-xs md:text-sm border border-cor-primaria hover:brightness-110 transition"
+              >
+                Acessar loja
+              </a>
               </div>
           </div>
         </div>
