@@ -229,9 +229,12 @@ function setupEventModal(
       const eventItem = eventsById.get(eventId);
       if (!eventItem) return;
       openModal(eventItem);
-      return;
     }
+  });
 
+  modalRoot.addEventListener('click', (evt) => {
+    const target = evt.target as Element | null;
+    if (!target) return;
     const close = target.closest('[data-event-modal-close], [data-event-modal-backdrop]');
     if (close) closeModal();
   });
