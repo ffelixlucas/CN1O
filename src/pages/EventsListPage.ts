@@ -80,7 +80,9 @@ function renderCard(item: EventItem): string {
         ` : ''}
 
         <div class="mt-4 flex items-center justify-between gap-2">
-          <span class="text-sm text-cor-primaria font-semibold">Ver detalhes →</span>
+          ${item.inscricaoUrl
+            ? `<a href="${escapeHtml(item.inscricaoUrl)}" target="_blank" rel="noopener noreferrer" class="text-sm text-cor-primaria font-semibold hover:underline">Ver detalhes →</a>`
+            : '<span class="text-sm text-cor-texto/55 font-semibold">Detalhes indisponiveis</span>'}
           ${canSubscribe
             ? `<a href="${escapeHtml(item.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center rounded-full bg-cor-primaria px-4 text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Inscrever</a>`
             : `<span class="inline-flex h-10 items-center rounded-full border border-cor-texto/20 px-4 text-cor-texto/60 text-sm">${item.isPast ? 'Finalizado' : 'Sem inscricao'}</span>`}
