@@ -1,5 +1,5 @@
 // components/Header.ts
-import { NAV_LINKS } from '../data/constants';
+import { NAV_LINKS, STORE_LINK } from '../data/constants';
 import { MobileMenu } from '../components/mobileMenu/MobileMenu';
 
 export function Header() {
@@ -73,19 +73,30 @@ export function Header() {
           Arte, cultura e transformação social através da capoeira
         </p>
 
-        <div data-anim="hero-cta-group" class="flex flex-col sm:flex-row gap-4 pt-2">
+        <div data-anim="hero-cta-group" class="grid grid-cols-2 gap-3 pt-2 sm:flex sm:flex-row sm:gap-4">
           <a 
             href="#sobre" 
             data-anim="hero-cta"
-            class="bg-cor-primaria hover:bg-cor-destaque text-cor-escura px-8 py-4 md:px-9 md:py-5 rounded-full font-semibold uppercase tracking-wider text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/30 inline-flex items-center justify-center gap-3 group"
+            class="min-w-0 bg-cor-primaria hover:bg-cor-destaque text-cor-escura px-4 py-3 md:px-9 md:py-5 rounded-full font-semibold uppercase tracking-[0.14em] text-[11px] sm:text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/30 inline-flex items-center justify-center gap-2 sm:gap-3 group text-center min-h-12"
           >
-            <span>Conheça a Escola</span>
-            <svg class="w-4 h-4 transition-transform group-hover:translate-y-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <span class="leading-tight">Conhecer a escola</span>
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-y-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 6V18M12 18L17 13M12 18L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
 
-          
+          <a
+            href="${STORE_LINK}"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-anim="hero-cta"
+            class="min-w-0 border border-cor-primaria/50 bg-cor-fundo/45 hover:bg-cor-secundaria/70 text-cor-texto px-4 py-3 md:px-9 md:py-5 rounded-full font-semibold uppercase tracking-[0.14em] text-[11px] sm:text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/20 inline-flex items-center justify-center gap-2 sm:gap-3 group text-center min-h-12 backdrop-blur-sm"
+          >
+            <span class="leading-tight">Acessar loja</span>
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H8.5M17 7V15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
