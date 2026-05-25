@@ -74,7 +74,7 @@ function renderNotices(items: NoticeItem[]): string {
   return `
     <div class="mb-6 flex flex-wrap items-center gap-2 text-[11px] md:text-xs uppercase tracking-[0.12em]">
       <span class="px-2.5 py-1 rounded-full bg-cor-secundaria/45 border border-cor-texto/10 text-cor-texto/75">${items.length} noticias</span>
-      <span class="px-2.5 py-1 rounded-full bg-cor-secundaria/45 border border-cor-texto/10 text-cor-texto/75">Ativo ate ${escapeHtml(latest.dataLabel)}${latest.horarioLabel ? ` • ${escapeHtml(latest.horarioLabel)}` : ''}</span>
+      <span class="px-2.5 py-1 rounded-full bg-cor-secundaria/45 border border-cor-texto/10 text-cor-texto/75">Ultima noticia em ${escapeHtml(latest.dataLabel)}${latest.horarioLabel ? ` • ${escapeHtml(latest.horarioLabel)}` : ''}</span>
       <span class="px-2.5 py-1 rounded-full bg-cor-primaria/90 text-cor-escura font-bold">Atualizacoes do nosso espaco cultural</span>
     </div>
 
