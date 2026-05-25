@@ -76,7 +76,7 @@ function renderCard(item: EventItem): string {
   const canSubscribe = Boolean(item.inscricaoUrl) && !item.isPast;
 
   return `
-    <article data-event-card data-event-id="${escapeHtml(item.id)}" class="surface-card rounded-2xl overflow-hidden">
+    <article data-event-card data-event-id="${escapeHtml(item.id)}" class="premium-card rounded-2xl overflow-hidden">
       <div class="relative h-44">
         <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" class="w-full h-full object-cover ${item.isPast ? 'grayscale' : ''}" style="object-position:${item.imageFocusX}% ${item.imageFocusY}%;" loading="lazy">
         <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/90 via-cor-fundo/45 to-transparent"></div>
@@ -112,7 +112,7 @@ function renderCard(item: EventItem): string {
             Ver detalhes →
           </button>
           ${canSubscribe
-            ? `<a href="${escapeHtml(item.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-full bg-cor-primaria px-4 text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Inscrever</a>`
+            ? `<a href="${escapeHtml(item.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="premium-button min-h-11 px-4 text-sm">Inscrever</a>`
             : `<span class="inline-flex min-h-11 items-center rounded-full border border-cor-texto/20 px-4 text-cor-texto/70 text-sm">${item.isPast ? 'Finalizado' : 'Sem inscricao'}</span>`}
         </div>
       </div>
@@ -127,7 +127,7 @@ function renderGrid(items: EventItem[]): string {
 
 function renderToolbar(tab: EventTab, query: string): string {
   return `
-    <div class="surface-card rounded-2xl p-4 mt-8 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+    <div class="premium-card rounded-2xl p-4 mt-8 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
       <div class="inline-flex rounded-full border border-cor-texto/20 p-1 w-fit">
         <button data-events-tab="todos" class="min-h-10 px-3 py-1.5 rounded-full text-sm ${tab === 'todos' ? 'bg-cor-primaria text-cor-escura font-bold' : 'text-cor-texto/80'}">Todos</button>
         <button data-events-tab="abertos" class="min-h-10 px-3 py-1.5 rounded-full text-sm ${tab === 'abertos' ? 'bg-cor-primaria text-cor-escura font-bold' : 'text-cor-texto/80'}">Abertos</button>
@@ -160,7 +160,7 @@ function renderModal(event: EventItem): string {
   return `
     <div data-event-modal class="fixed inset-0 z-[100] hidden">
       <div data-event-modal-backdrop class="absolute inset-0 bg-cor-fundo/88 backdrop-blur-sm"></div>
-      <div class="relative z-10 mx-auto mt-8 md:mt-12 w-[94%] md:w-full max-w-3xl max-h-[86vh] overflow-y-auto rounded-3xl surface-card p-4 md:p-6">
+      <div class="relative z-10 mx-auto mt-8 md:mt-12 w-[94%] md:w-full max-w-3xl max-h-[86vh] overflow-y-auto rounded-3xl premium-card p-4 md:p-6">
         <button type="button" data-event-modal-close class="absolute top-3 right-3 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cor-texto/20 bg-cor-fundo/70 text-cor-texto/80 hover:text-cor-primaria hover:border-cor-primaria/40 leading-none">
           <span aria-hidden="true">×</span>
         </button>
@@ -186,7 +186,7 @@ function renderModal(event: EventItem): string {
 
           <div class="mt-5 flex flex-wrap items-center gap-3">
             ${canSubscribe
-              ? `<a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center gap-2 px-5 py-3 rounded-full bg-cor-primaria text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Fazer inscricao <span>→</span></a>`
+              ? `<a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="premium-button px-5 py-3 text-sm">Fazer inscricao <span>→</span></a>`
               : `<span class="text-cor-texto/65 text-sm">${event.isPast ? 'Evento finalizado' : 'Evento sem inscricao obrigatoria'}</span>`}
           </div>
         </div>
@@ -249,9 +249,9 @@ export function EventsListPage() {
     <main class="min-h-screen bg-cor-fundo text-cor-texto py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
         <a data-route href="/" class="inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-cor-texto/75 hover:text-cor-primaria text-sm mb-8">← Voltar para home</a>
-        <p class="text-cor-primaria text-xs md:text-sm tracking-[0.18em] uppercase font-semibold">Agenda completa</p>
-        <h1 class="mt-3 text-3xl sm:text-4xl md:text-5xl font-black">Todos os eventos</h1>
-        <p class="mt-4 text-cor-texto/80 max-w-3xl">Lista completa de eventos cadastrados.</p>
+        <p class="section-kicker">Agenda completa</p>
+        <h1 class="section-title mt-3 text-3xl sm:text-4xl md:text-5xl">Todos os eventos</h1>
+        <p class="section-copy mt-4 max-w-3xl">Lista completa de eventos cadastrados.</p>
 
         <div data-events-toolbar></div>
         <div data-events-list class="mt-8">

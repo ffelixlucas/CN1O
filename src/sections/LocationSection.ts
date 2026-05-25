@@ -28,15 +28,15 @@ export function LocationSection() {
       <div class="relative z-10 max-w-7xl mx-auto px-6">
         <div class="max-w-3xl mb-9 md:mb-12">
           <div class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-4"></div>
-          <span class="block text-cor-primaria text-xs md:text-sm tracking-[0.18em] uppercase font-semibold">Onde estamos</span>
-          <h2 class="mt-4 text-3xl sm:text-4xl md:text-5xl font-black text-cor-texto tracking-tight">LOCALIZACAO</h2>
-          <p class="mt-4 text-cor-texto/80 text-base md:text-lg max-w-2xl">
+          <span class="section-kicker block">Onde estamos</span>
+          <h2 class="section-title mt-4 text-3xl sm:text-4xl md:text-5xl">LOCALIZACAO</h2>
+          <p class="section-copy mt-4 text-base md:text-lg max-w-2xl">
             Venha conhecer nossa roda e viver a capoeira de perto.
           </p>
         </div>
 
         <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 md:gap-8 items-stretch">
-          <div class="surface-card rounded-3xl p-6 md:p-8">
+          <div class="premium-card rounded-3xl p-6 md:p-8">
             <div class="space-y-6">
               <div>
                 <p class="text-[11px] uppercase tracking-[0.14em] text-cor-primaria font-semibold">Endereco</p>
@@ -82,7 +82,7 @@ export function LocationSection() {
                 data-loc-map-link
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex min-h-12 w-full items-center justify-center gap-2 mt-2 bg-cor-primaria hover:bg-cor-destaque text-cor-escura px-5 py-3 rounded-full font-bold uppercase tracking-wide text-xs md:text-sm transition-colors"
+                class="premium-button w-full mt-2 px-5 py-3 text-xs md:text-sm"
               >
                 Abrir no mapa
                 <span>→</span>
@@ -90,12 +90,12 @@ export function LocationSection() {
             </div>
           </div>
 
-          <div class="surface-card-soft rounded-3xl overflow-hidden min-h-[320px]">
+          <div class="premium-card rounded-3xl overflow-hidden min-h-[320px] p-1">
             <iframe
               title="Mapa - Capoeira Nota 10"
               src="${toMapsEmbedUrl(DEFAULT_MAP_QUERY)}"
               data-loc-map-embed
-              class="w-full h-full min-h-[320px]"
+              class="w-full h-full min-h-[320px] rounded-[1.25rem]"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
             ></iframe>

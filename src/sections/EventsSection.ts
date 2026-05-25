@@ -59,7 +59,7 @@ function renderEventCard(event: EventItem, isNextEvent: boolean): string {
     : null;
 
   return `
-    <article data-event-card data-event-id="${escapeHtml(event.id)}" class="surface-card flex-[0_0_86%] sm:flex-[0_0_72%] lg:flex-[0_0_calc(50%-0.75rem)] xl:flex-[0_0_calc(33.333%-1rem)] snap-start rounded-2xl overflow-hidden ${event.isPast ? 'opacity-85' : ''}">
+    <article data-event-card data-event-id="${escapeHtml(event.id)}" class="premium-card flex-[0_0_86%] sm:flex-[0_0_72%] lg:flex-[0_0_calc(50%-0.75rem)] xl:flex-[0_0_calc(33.333%-1rem)] snap-start rounded-2xl overflow-hidden ${event.isPast ? 'opacity-85' : ''}">
       <div class="relative h-44 md:h-52">
         <img src="${escapeHtml(event.image)}" alt="${escapeHtml(event.title)}" class="w-full h-full object-cover ${event.isPast ? 'grayscale' : ''}" style="object-position:${event.imageFocusX}% ${event.imageFocusY}%;" loading="lazy">
         <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/85 via-cor-fundo/30 to-transparent"></div>
@@ -88,7 +88,7 @@ function renderEventCard(event: EventItem, isNextEvent: boolean): string {
           ${showMeta
             ? `
               <div class="rounded-xl border border-[#8fffc8]/20 bg-cor-fundo/25 px-2.5 py-2 space-y-1.5">
-                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-cor-texto/78">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-cor-texto/80">
                   <p>Inscritos <strong class="text-[#8fffc8]">${escapeHtml(inscritosLabel)}</strong></p>
                   ${inscricoesAteDia ? `<p>Inscricoes ate dia <strong class="text-cor-texto/90">${escapeHtml(inscricoesAteDia)}</strong></p>` : ''}
                   <p>Acontece em <strong class="text-cor-texto/90">${escapeHtml(eventDateLabel)}</strong></p>
@@ -116,7 +116,7 @@ function renderEventCard(event: EventItem, isNextEvent: boolean): string {
 
           ${canSubscribe
             ? `
-            <a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="ml-auto inline-flex min-h-11 items-center gap-2 px-4 rounded-full bg-cor-primaria text-cor-escura text-xs md:text-sm font-bold hover:bg-cor-destaque transition-colors">
+            <a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="premium-button ml-auto min-h-11 px-4 text-xs md:text-sm">
               Inscrever
             </a>
           `
@@ -142,11 +142,11 @@ function renderEvents(items: EventItem[]): string {
       </div>
 
       <div class="mt-5 flex items-center justify-center md:justify-end gap-2">
-        <button type="button" data-events-prev class="inline-flex items-center justify-center w-12 h-12 rounded-full border border-cor-texto/25 bg-cor-fundo/70 text-cor-texto/90 hover:text-cor-primaria hover:border-cor-primaria/40 transition-colors" aria-label="Evento anterior">
-          ❮
+        <button type="button" data-events-prev class="premium-button-muted inline-flex items-center justify-center w-12 h-12 p-0" aria-label="Evento anterior">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <button type="button" data-events-next class="inline-flex items-center justify-center w-12 h-12 rounded-full border border-cor-texto/25 bg-cor-fundo/70 text-cor-texto/90 hover:text-cor-primaria hover:border-cor-primaria/40 transition-colors" aria-label="Proximo evento">
-          ❯
+        <button type="button" data-events-next class="premium-button-muted inline-flex items-center justify-center w-12 h-12 p-0" aria-label="Proximo evento">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
     </div>
@@ -163,7 +163,7 @@ function renderModal(event: EventItem): string {
   return `
     <div data-event-modal class="fixed inset-0 z-[100] hidden">
       <div data-event-modal-backdrop class="absolute inset-0 bg-cor-fundo/88 backdrop-blur-sm"></div>
-      <div class="relative z-10 mx-auto mt-8 md:mt-12 w-[94%] md:w-full max-w-3xl max-h-[86vh] overflow-y-auto rounded-3xl surface-card p-4 md:p-6">
+      <div class="relative z-10 mx-auto mt-8 md:mt-12 w-[94%] md:w-full max-w-3xl max-h-[86vh] overflow-y-auto rounded-3xl premium-card p-4 md:p-6">
         <button type="button" data-event-modal-close class="absolute top-3 right-3 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cor-texto/20 bg-cor-fundo/70 text-cor-texto/80 hover:text-cor-primaria hover:border-cor-primaria/40 leading-none">
           <span aria-hidden="true">×</span>
         </button>
@@ -192,7 +192,7 @@ function renderModal(event: EventItem): string {
 
           <div class="mt-5 flex flex-wrap items-center gap-3">
             ${canSubscribe
-              ? `<a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center gap-2 px-5 py-3 rounded-full bg-cor-primaria text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Fazer inscricao <span>→</span></a>`
+              ? `<a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="premium-button px-5 py-3 text-sm">Fazer inscricao <span>→</span></a>`
               : `<span class="text-cor-texto/65 text-sm">${event.isPast ? 'Evento finalizado' : 'Evento sem inscricao obrigatoria'}</span>`}
           </div>
         </div>
@@ -327,9 +327,9 @@ export function EventsSection() {
       <div class="relative z-10 max-w-7xl mx-auto px-6">
         <div class="max-w-3xl mb-9 md:mb-12">
           <div class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-4"></div>
-          <span class="block text-cor-primaria text-xs md:text-sm tracking-[0.18em] uppercase font-semibold">Proximos eventos</span>
-          <h2 class="mt-4 text-3xl sm:text-4xl md:text-5xl font-black text-cor-texto tracking-tight">AGENDA CULTURAL</h2>
-          <p class="mt-4 text-cor-texto/80 text-base md:text-lg max-w-2xl">
+          <span class="section-kicker block">Proximos eventos</span>
+          <h2 class="section-title mt-4 text-3xl sm:text-4xl md:text-5xl">AGENDA CULTURAL</h2>
+          <p class="section-copy mt-4 text-base md:text-lg max-w-2xl">
             Eventos, rodas e encontros especiais para fortalecer a comunidade.
           </p>
           <a

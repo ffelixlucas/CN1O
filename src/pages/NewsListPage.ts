@@ -26,11 +26,11 @@ function renderMobileTimelineItem(item: NoticeItem, index: number): string {
         <span class="mt-2 rounded-full border border-cor-primaria/35 bg-cor-fundo px-2 py-1 text-center text-[9px] font-bold uppercase leading-tight tracking-[0.08em] text-cor-primaria">
           ${escapeHtml(item.dataLabel)}
         </span>
-        ${item.horarioLabel ? `<span class="mt-1 text-[9px] font-semibold text-cor-texto/45">${escapeHtml(item.horarioLabel)}</span>` : ''}
+        ${item.horarioLabel ? `<span class="mt-1 text-[9px] font-semibold text-cor-texto/60">${escapeHtml(item.horarioLabel)}</span>` : ''}
       </div>
 
       <a data-route href="${escapeHtml(toNoticeDetailPath(item.id))}" class="group block">
-        <article class="surface-card rounded-2xl overflow-hidden hover:border-cor-primaria/35 transition-colors">
+        <article class="premium-card rounded-2xl overflow-hidden transition-colors">
           <div class="surface-card-soft relative aspect-[16/9]">
             <img src="${escapeHtml(getNoticeImage(item))}" alt="${escapeHtml(item.titulo)}" class="w-full h-full object-cover" loading="lazy">
             ${isFeatured ? '<span class="absolute left-3 top-3 px-2.5 py-1 rounded-full bg-cor-primaria text-cor-escura text-[10px] uppercase tracking-[0.1em] font-extrabold">Recente</span>' : ''}
@@ -67,7 +67,7 @@ function renderList(items: NoticeItem[]): string {
     </div>
 
     <div class="hidden md:block">
-    <a data-route href="${escapeHtml(toNoticeDetailPath(featured.id))}" class="surface-card group block rounded-3xl overflow-hidden mb-8 hover:border-cor-primaria/35 transition-colors">
+    <a data-route href="${escapeHtml(toNoticeDetailPath(featured.id))}" class="premium-card group block rounded-3xl overflow-hidden mb-8 transition-colors">
       <div class="grid lg:grid-cols-2">
         <div class="surface-card-soft aspect-[16/10] lg:aspect-auto">
           <img src="${escapeHtml(getNoticeImage(featured))}" alt="${escapeHtml(featured.titulo)}" class="w-full h-full object-cover" loading="lazy">
@@ -93,7 +93,7 @@ function renderList(items: NoticeItem[]): string {
 
     <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
       ${others.map((item) => `
-        <a data-route href="${escapeHtml(toNoticeDetailPath(item.id))}" class="surface-card group block rounded-2xl overflow-hidden hover:border-cor-primaria/35 transition-colors">
+        <a data-route href="${escapeHtml(toNoticeDetailPath(item.id))}" class="premium-card group block rounded-2xl overflow-hidden transition-colors">
           <div class="surface-card-soft aspect-[16/10]">
             <img src="${escapeHtml(getNoticeImage(item))}" alt="${escapeHtml(item.titulo)}" class="w-full h-full object-cover" loading="lazy">
           </div>
@@ -120,9 +120,9 @@ export function NewsListPage() {
     <main class="min-h-screen bg-cor-fundo text-cor-texto py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
         <a data-route href="/" class="inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-cor-texto/75 hover:text-cor-primaria text-sm mb-8">← Voltar para home</a>
-        <p class="text-cor-primaria text-xs md:text-sm tracking-[0.18em] uppercase font-semibold">Blog do Espaco Cultural</p>
-        <h1 class="mt-3 text-3xl sm:text-4xl md:text-5xl font-black">Noticias</h1>
-        <p class="mt-4 text-cor-texto/80 max-w-3xl">Acompanhe noticias, eventos e novidades do espaco cultural.</p>
+        <p class="section-kicker">Blog do Espaco Cultural</p>
+        <h1 class="section-title mt-3 text-3xl sm:text-4xl md:text-5xl">Noticias</h1>
+        <p class="section-copy mt-4 max-w-3xl">Acompanhe noticias, eventos e novidades do espaco cultural.</p>
 
         <div data-news-list-root class="mt-10">
           <p class="text-cor-texto/70">Carregando noticias...</p>

@@ -20,14 +20,14 @@ export function Header() {
       ></div>
     
       <!-- Overlays -->
-      <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/92 via-cor-fundo/58 to-cor-fundo/18"></div>
-      <div class="absolute inset-0 bg-gradient-to-br from-cor-secundaria/30 via-transparent to-transparent mix-blend-overlay"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/94 via-cor-fundo/58 to-cor-fundo/20"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-cor-fundo/55 via-cor-fundo/12 to-transparent hidden md:block"></div>
     </div>
 
     <!-- Navbar -->
     <nav data-anim="hero-nav" class="relative z-20 flex max-w-[100vw] items-center justify-between gap-3 px-5 py-4 md:px-6 md:py-8 md:max-w-7xl mx-auto w-full">
       <div class="flex shrink-0 items-center gap-4">
-        <div class="inline-flex items-center justify-center rounded-xl bg-[#FFFFFF] p-1.5 md:p-2 shadow-[0_6px_14px_rgba(0,0,0,0.2)] ring-1 ring-white/55">
+        <div class="inline-flex items-center justify-center rounded-xl bg-[#FFFFFF] p-1.5 md:p-2 shadow-[0_10px_28px_rgba(0,0,0,0.24)] ring-1 ring-white/65">
           <img src="/media/logo.png" class="h-14 sm:h-16 md:h-22 w-auto" alt="Capoeira Nota 10" loading="eager" fetchpriority="high" />
         </div>
       </div>
@@ -36,7 +36,7 @@ export function Header() {
         ${NAV_LINKS.map(link => `
           <a 
             href="${link.href}" 
-            class="relative text-cor-texto/90 hover:text-cor-primaria text-sm uppercase tracking-widest font-medium transition-colors duration-300 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:bg-cor-primaria after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+            class="relative text-cor-texto/90 hover:text-cor-primaria text-sm uppercase tracking-widest font-semibold transition-colors duration-300 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:bg-cor-primaria after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
           >
             ${link.label}
           </a>
@@ -49,7 +49,7 @@ export function Header() {
           aria-label="Abrir menu de navegação"
           aria-expanded="false"
           aria-controls="menu-panel"
-          class="inline-flex items-center justify-center w-11 h-11 rounded-full border border-cor-primaria/35 text-cor-primaria hover:text-cor-destaque hover:border-cor-destaque/55 transition-colors"
+          class="premium-button-secondary inline-flex items-center justify-center w-12 h-12 p-0"
         >
           <svg class="w-5.5 h-5.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
@@ -66,20 +66,25 @@ export function Header() {
 
         <div data-anim="hero-line" class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-2"></div>
 
+        <div class="flex flex-wrap gap-2">
+          <span class="premium-chip">Desde 2011</span>
+          <span class="premium-chip">Pinhais - PR</span>
+        </div>
+
         <h1 data-anim="hero-title" class="text-4xl sm:text-5xl md:text-7xl font-black text-cor-texto leading-tight tracking-tight drop-shadow-xl">
           CAPOEIRA<br>
           <span class="text-cor-primaria">NOTA 10</span>
         </h1>
 
-        <p data-anim="hero-copy" class="text-base md:text-xl text-cor-texto max-w-xl font-bold leading-relaxed">
+        <p data-anim="hero-copy" class="text-base md:text-xl text-cor-texto max-w-[20rem] md:max-w-xl font-bold leading-relaxed">
           Aulas de capoeira para criancas, jovens e adultos em Pinhais.
         </p>
 
         <div data-anim="hero-cta-group" class="grid gap-3 pt-2 sm:flex sm:flex-row sm:flex-wrap sm:gap-4">
-          <a 
+        <a 
             href="#aulas" 
             data-anim="hero-cta"
-            class="min-w-0 bg-cor-primaria hover:bg-cor-destaque text-cor-escura px-5 py-4 md:px-9 md:py-5 rounded-full font-extrabold uppercase tracking-[0.12em] text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/30 inline-flex items-center justify-center gap-2 sm:gap-3 group text-center min-h-12"
+            class="premium-button min-w-0 px-5 py-4 md:px-9 md:py-5 text-xs sm:text-sm group text-center"
           >
             <span class="leading-tight">Agendar aula experimental</span>
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-y-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -92,7 +97,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             data-anim="hero-cta"
-            class="min-w-0 border border-cor-primaria/50 bg-cor-fundo/55 hover:bg-cor-secundaria/70 text-cor-texto px-5 py-4 md:px-9 md:py-5 rounded-full font-bold uppercase tracking-[0.12em] text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/20 inline-flex items-center justify-center gap-2 sm:gap-3 group text-center min-h-12 backdrop-blur-sm"
+            class="premium-button-secondary min-w-0 px-5 py-4 md:px-9 md:py-5 text-xs sm:text-sm group text-center"
           >
             <span class="leading-tight">Fazer matricula</span>
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -105,7 +110,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             data-anim="hero-cta"
-            class="min-w-0 border border-cor-texto/25 bg-cor-fundo/35 hover:bg-cor-secundaria/70 text-cor-texto px-5 py-4 md:px-7 md:py-5 rounded-full font-bold uppercase tracking-[0.12em] text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/20 inline-flex items-center justify-center gap-2 sm:gap-3 group text-center min-h-12 backdrop-blur-sm"
+            class="premium-button-muted min-w-0 px-5 py-4 md:px-7 md:py-5 text-xs sm:text-sm group text-center"
           >
             <span class="leading-tight">Acessar loja</span>
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">

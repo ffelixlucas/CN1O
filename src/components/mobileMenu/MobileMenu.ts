@@ -21,7 +21,7 @@ export function MobileMenu() {
         <div class="flex items-center justify-between p-5 border-b border-cor-primaria/20">
           <span class="text-cor-primaria font-bold text-lg tracking-widest">MENU</span>
           
-          <button id="close-menu" class="group relative w-12 h-12 flex items-center justify-center">
+          <button id="close-menu" class="premium-button-secondary group relative w-12 h-12 flex items-center justify-center p-0">
             <span class="sr-only">Fechar menu</span>
             
             <!-- Anel externo animado -->
@@ -41,7 +41,7 @@ export function MobileMenu() {
           ${NAV_LINKS.map((link, index) => `
             <a 
               href="${link.href}" 
-              class="menu-link group relative flex min-h-12 items-center text-2xl md:text-4xl font-light text-cor-texto/85 hover:text-cor-primaria transition-all duration-300 transform hover:translate-x-4"
+              class="menu-link group relative flex min-h-12 items-center rounded-xl px-1 text-2xl md:text-4xl font-light text-cor-texto/85 hover:text-cor-primaria transition-all duration-300 transform hover:translate-x-2"
               style="transition-delay: ${index * 50}ms"
             >
               <!-- Indicador animado -->
@@ -71,7 +71,7 @@ export function MobileMenu() {
       class="group relative"
       aria-label="Instagram"
     >
-      <div class="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] border border-white/5 group-hover:border-white/40 transition-all duration-500 shadow-md group-hover:shadow-xl group-hover:shadow-pink-600/30 flex items-center justify-center transform group-hover:-translate-y-1">
+      <div class="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] border border-white/15 group-hover:border-white/45 transition-all duration-300 shadow-[0_12px_24px_rgba(0,0,0,0.24)] flex items-center justify-center transform group-hover:-translate-y-1">
         <svg class="w-8 h-8 md:w-9 md:h-9 text-white group-hover:scale-110 transition-all duration-500 ease-out" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.332.014 7.052.072 2.578.266.181 2.666.072 7.14.014 8.42 0 8.828 0 12c0 3.172.014 3.58.072 4.86C.18 21.334 2.578 23.734 7.052 23.928 8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.474-.194 6.871-2.594 6.98-7.068.058-1.28.072-1.688.072-4.86 0-3.172-.014-3.58-.072-4.86C23.82 2.666 21.422.266 16.948.072 15.668.014 15.259 0 12 0z"/>
           <circle cx="18.406" cy="5.594" r="1.44"/>
@@ -89,7 +89,7 @@ export function MobileMenu() {
       class="group relative"
       aria-label="Facebook"
     >
-      <div class="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden bg-[#1877f2] border border-white/5 group-hover:border-white/40 transition-all duration-500 shadow-md group-hover:shadow-xl group-hover:shadow-blue-600/30 flex items-center justify-center transform group-hover:-translate-y-1">
+      <div class="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden bg-[#1877f2] border border-white/15 group-hover:border-white/45 transition-all duration-300 shadow-[0_12px_24px_rgba(0,0,0,0.24)] flex items-center justify-center transform group-hover:-translate-y-1">
         <svg class="w-8 h-8 md:w-9 md:h-9 text-white group-hover:scale-110 transition-all duration-500 ease-out" viewBox="0 0 320 512" fill="currentColor">
           <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
         </svg>

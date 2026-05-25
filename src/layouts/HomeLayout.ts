@@ -14,8 +14,8 @@ export function HomeLayout() {
     ${ClassesSection()}
     ${EventsSection()}
     ${NoticesSection()}
-    ${LocationSection()}
     ${StoreTeaserSection()}
+    ${LocationSection()}
     ${Footer()}
   `;
 }
