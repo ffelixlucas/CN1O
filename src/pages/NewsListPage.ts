@@ -16,6 +16,41 @@ function getNoticeImage(item: NoticeItem): string {
   return item.imagemUrl || NOTICE_FALLBACK_IMAGE;
 }
 
+function renderMobileTimelineItem(item: NoticeItem, index: number): string {
+  const isFeatured = index === 0;
+
+  return `
+    <div class="relative pt-12">
+      <div class="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 flex-col items-center">
+        <span class="w-3.5 h-3.5 rounded-full ${isFeatured ? 'bg-cor-primaria shadow-[0_0_0_5px_rgba(243,200,73,0.2)]' : 'bg-cor-secundaria border border-cor-primaria/70 shadow-[0_0_0_4px_rgba(243,200,73,0.12)]'}"></span>
+        <span class="mt-2 rounded-full border border-cor-primaria/35 bg-cor-fundo px-2 py-1 text-center text-[9px] font-bold uppercase leading-tight tracking-[0.08em] text-cor-primaria">
+          ${escapeHtml(item.dataLabel)}
+        </span>
+        ${item.horarioLabel ? `<span class="mt-1 text-[9px] font-semibold text-cor-texto/45">${escapeHtml(item.horarioLabel)}</span>` : ''}
+      </div>
+
+      <a data-route href="${escapeHtml(toNoticeDetailPath(item.id))}" class="group block">
+        <article class="surface-card rounded-2xl overflow-hidden hover:border-cor-primaria/35 transition-colors">
+          <div class="surface-card-soft relative aspect-[16/9]">
+            <img src="${escapeHtml(getNoticeImage(item))}" alt="${escapeHtml(item.titulo)}" class="w-full h-full object-cover" loading="lazy">
+            ${isFeatured ? '<span class="absolute left-3 top-3 px-2.5 py-1 rounded-full bg-cor-primaria text-cor-escura text-[10px] uppercase tracking-[0.1em] font-extrabold">Recente</span>' : ''}
+          </div>
+          <div class="p-4">
+            <p class="text-[10px] uppercase tracking-[0.12em] text-cor-primaria font-semibold">${escapeHtml(item.categoria)}</p>
+            <h2 class="mt-2 text-cor-texto ${isFeatured ? 'text-xl' : 'text-lg'} font-black leading-tight">${escapeHtml(item.titulo)}</h2>
+            <p class="mt-2 text-cor-texto/75 text-sm leading-relaxed line-clamp-3">${escapeHtml(item.resumo)}</p>
+            <p class="mt-3 text-[10px] uppercase tracking-[0.12em] text-cor-texto/55">${escapeHtml(item.autor)} • ${item.leituraMin} min</p>
+            <span class="mt-4 inline-flex items-center gap-1.5 text-cor-primaria text-sm font-semibold group-hover:translate-x-1 transition-transform">
+              Ler noticia
+              <span>→</span>
+            </span>
+          </div>
+        </article>
+      </a>
+    </div>
+  `;
+}
+
 function renderList(items: NoticeItem[]): string {
   if (items.length === 0) {
     return '<p class="text-cor-texto/70">Nenhuma noticia disponivel no momento.</p>';
@@ -24,6 +59,14 @@ function renderList(items: NoticeItem[]): string {
   const [featured, ...others] = items;
 
   return `
+    <div class="md:hidden relative">
+      <div class="absolute left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2 bg-gradient-to-b from-cor-primaria via-cor-primaria/45 to-transparent"></div>
+      <div class="space-y-7">
+        ${items.map(renderMobileTimelineItem).join('')}
+      </div>
+    </div>
+
+    <div class="hidden md:block">
     <a data-route href="${escapeHtml(toNoticeDetailPath(featured.id))}" class="surface-card group block rounded-3xl overflow-hidden mb-8 hover:border-cor-primaria/35 transition-colors">
       <div class="grid lg:grid-cols-2">
         <div class="surface-card-soft aspect-[16/10] lg:aspect-auto">
@@ -67,6 +110,7 @@ function renderList(items: NoticeItem[]): string {
           </div>
         </a>
       `).join('')}
+    </div>
     </div>
   `;
 }

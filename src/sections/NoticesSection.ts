@@ -39,6 +39,27 @@ function renderNoticeTimelineItem(item: NoticeItem): string {
   `;
 }
 
+function renderMobileNoticeItem(item: NoticeItem): string {
+  return `
+    <a data-route href="${escapeHtml(toNoticeDetailPath(item.id))}" class="surface-card group grid grid-cols-[96px_1fr] gap-3 rounded-2xl p-3 hover:border-cor-primaria/35 transition-colors">
+      <div class="surface-card-soft rounded-xl overflow-hidden aspect-square">
+        <img src="${escapeHtml(getNoticeImage(item))}" alt="${escapeHtml(item.titulo)}" class="w-full h-full object-cover" loading="lazy">
+      </div>
+      <div class="min-w-0 py-0.5">
+        <div class="flex flex-wrap items-center gap-1.5 text-[10px] uppercase tracking-[0.12em] text-cor-texto/55">
+          <span class="font-semibold text-cor-texto/75">${escapeHtml(item.dataLabel)}</span>
+          ${item.horarioLabel ? `<span class="inline-block w-1 h-1 rounded-full bg-cor-texto/30"></span><span>${escapeHtml(item.horarioLabel)}</span>` : ''}
+        </div>
+        <h3 class="mt-1.5 text-cor-texto font-bold text-sm leading-snug line-clamp-2">${escapeHtml(item.titulo)}</h3>
+        <span class="mt-2 inline-flex items-center gap-1.5 text-cor-primaria text-xs font-semibold group-hover:translate-x-1 transition-transform">
+          Ler
+          <span>→</span>
+        </span>
+      </div>
+    </a>
+  `;
+}
+
 function renderNotices(items: NoticeItem[]): string {
   if (items.length === 0) {
     return '<p class="col-span-full text-cor-texto/70 text-sm md:text-base">Nenhuma publicacao disponivel no momento.</p>';
@@ -46,6 +67,9 @@ function renderNotices(items: NoticeItem[]): string {
 
   const [featured, ...others] = items;
   const latest = items[0];
+  const timelineItems = (others.length ? others : [featured]).slice(0, 2);
+  const hiddenItemsCount = Math.max(0, others.length - timelineItems.length);
+  const mobileRecentItems = others.slice(0, 2);
 
   return `
     <div class="mb-6 flex flex-wrap items-center gap-2 text-[11px] md:text-xs uppercase tracking-[0.12em]">
@@ -54,7 +78,46 @@ function renderNotices(items: NoticeItem[]): string {
       <span class="px-2.5 py-1 rounded-full bg-cor-primaria/90 text-cor-escura font-bold">Atualizacoes do nosso espaco cultural</span>
     </div>
 
-    <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-6 md:gap-8 items-start">
+    <div class="lg:hidden space-y-6">
+      <a data-route href="${escapeHtml(toNoticeDetailPath(featured.id))}" data-anim="notice-featured" class="surface-card group block rounded-3xl overflow-hidden hover:border-cor-primaria/35 transition-colors">
+        <div class="surface-card-soft relative aspect-[4/3]">
+          <img src="${escapeHtml(getNoticeImage(featured))}" alt="${escapeHtml(featured.titulo)}" class="w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/88 via-cor-fundo/20 to-transparent"></div>
+          <div class="absolute bottom-3 left-3 right-3 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.12em]">
+            <span class="px-2.5 py-1 rounded-full bg-cor-primaria text-cor-escura font-extrabold">Em destaque</span>
+            <span class="px-2.5 py-1 rounded-full bg-cor-fundo/70 text-cor-texto/80">${escapeHtml(featured.dataLabel)}</span>
+          </div>
+        </div>
+
+        <div class="p-5">
+          <p class="text-[10px] uppercase tracking-[0.16em] text-cor-primaria font-semibold mb-2">Publicacao principal</p>
+          <h3 class="text-cor-texto text-2xl font-black leading-tight">${escapeHtml(featured.titulo)}</h3>
+          <p class="mt-3 text-cor-texto/78 text-sm leading-relaxed line-clamp-3">${escapeHtml(featured.resumo)}</p>
+          <span class="mt-5 inline-flex items-center gap-2 text-cor-primaria font-semibold text-sm group-hover:translate-x-1 transition-transform">
+            Ver publicacao completa
+            <span>→</span>
+          </span>
+        </div>
+      </a>
+
+      ${mobileRecentItems.length ? `
+        <div>
+          <h3 class="text-cor-texto text-base font-black uppercase tracking-[0.12em]">Mais recentes</h3>
+          <div class="mt-3 space-y-3">
+            ${mobileRecentItems.map(renderMobileNoticeItem).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      ${items.length > 1 ? `
+        <a data-route href="/noticias" class="inline-flex w-full items-center justify-center gap-2 rounded-full border border-cor-primaria/45 bg-cor-fundo/45 px-5 py-3 text-sm font-bold text-cor-primaria hover:border-cor-primaria hover:bg-cor-primaria hover:text-cor-escura transition-colors">
+          Ver todas as noticias
+          <span>→</span>
+        </a>
+      ` : ''}
+    </div>
+
+    <div class="hidden lg:grid lg:grid-cols-[1.05fr_0.95fr] gap-6 md:gap-8 items-start">
       <a data-route href="${escapeHtml(toNoticeDetailPath(featured.id))}" data-anim="notice-featured" class="surface-card group block rounded-3xl overflow-hidden hover:border-cor-primaria/35 transition-colors">
         <div class="surface-card-soft relative aspect-[16/10]">
           <img src="${escapeHtml(getNoticeImage(featured))}" alt="${escapeHtml(featured.titulo)}" class="w-full h-full object-cover" loading="lazy">
@@ -80,8 +143,14 @@ function renderNotices(items: NoticeItem[]): string {
       <div data-anim="notice-list" class="relative md:pl-8">
         <div class="hidden md:block absolute left-[0.32rem] top-0 bottom-0 w-[2px] bg-gradient-to-b from-cor-primaria via-cor-primaria/45 to-transparent"></div>
         <div class="space-y-4 md:space-y-5">
-          ${(others.length ? others : [featured]).map(renderNoticeTimelineItem).join('')}
+          ${timelineItems.map(renderNoticeTimelineItem).join('')}
         </div>
+        ${hiddenItemsCount > 0 ? `
+          <a data-route href="/noticias" class="mt-5 inline-flex w-full md:w-auto items-center justify-center gap-2 rounded-full border border-cor-primaria/45 bg-cor-fundo/45 px-5 py-3 text-sm font-bold text-cor-primaria hover:border-cor-primaria hover:bg-cor-primaria hover:text-cor-escura transition-colors">
+            Ver mais noticias
+            <span>→</span>
+          </a>
+        ` : ''}
       </div>
     </div>
   `;
