@@ -55,9 +55,9 @@ function renderDetail(item: NoticeItem, source: NoticeItem[]): string {
         <div class="grid md:grid-cols-2 gap-4">
           ${related.map((news) => `
             <a data-route href="${escapeHtml(toNoticeDetailPath(news.id))}" class="surface-card group block rounded-2xl p-4 hover:border-cor-primaria/35 transition-colors">
-              <p class="text-[11px] uppercase tracking-[0.14em] text-cor-texto/60">${escapeHtml(news.dataLabel)}</p>
+              <p class="text-[11px] uppercase tracking-[0.14em] text-cor-texto/70">${escapeHtml(news.dataLabel)}</p>
               <h3 class="mt-2 text-cor-texto font-semibold leading-snug line-clamp-2">${escapeHtml(news.titulo)}</h3>
-              <span class="mt-3 inline-flex items-center gap-2 text-cor-primaria text-sm font-semibold group-hover:translate-x-1 transition-transform">Ler <span>→</span></span>
+              <span class="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-cor-primaria text-sm font-semibold group-hover:translate-x-1 transition-transform">Ler <span>→</span></span>
             </a>
           `).join('')}
         </div>
@@ -65,7 +65,7 @@ function renderDetail(item: NoticeItem, source: NoticeItem[]): string {
     ` : ''}
 
     <div data-news-image-modal class="fixed inset-0 z-[120] bg-black/90 hidden items-center justify-center p-4">
-      <button type="button" data-news-image-close class="absolute top-4 right-4 text-white/80 hover:text-white text-2xl leading-none" aria-label="Fechar imagem">×</button>
+      <button type="button" data-news-image-close class="absolute top-4 right-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white/80 hover:text-white text-2xl leading-none" aria-label="Fechar imagem">×</button>
       <img data-news-image-modal-content src="" alt="Imagem ampliada" class="max-w-full max-h-[88vh] object-contain rounded-xl shadow-2xl">
     </div>
   `;
@@ -110,9 +110,9 @@ function bindImageLightbox(root: HTMLElement) {
 
 export function NewsDetailPage() {
   return `
-    <main class="min-h-screen bg-cor-fundo text-cor-texto py-20 md:py-24">
+    <main class="min-h-screen bg-cor-fundo text-cor-texto py-16 md:py-24">
       <div class="max-w-5xl mx-auto px-4 sm:px-6">
-        <a data-route href="/noticias" class="inline-flex items-center gap-2 text-cor-texto/70 hover:text-cor-primaria text-sm mb-8">← Voltar para noticias</a>
+        <a data-route href="/noticias" class="inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-cor-texto/75 hover:text-cor-primaria text-sm mb-8">← Voltar para noticias</a>
         <div data-news-detail-root>
           <p class="text-cor-texto/70">Carregando noticia...</p>
         </div>

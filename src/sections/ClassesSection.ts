@@ -201,7 +201,7 @@ function renderCards(items: ClassGroup[]): string {
       (aula) => `
             <article
               data-anim="class-card"
-              class="surface-card group relative rounded-3xl p-6 md:p-7 transition-transform duration-300 hover:-translate-y-1"
+              class="surface-card group relative rounded-3xl p-5 md:p-7 transition-transform duration-300 hover:-translate-y-1"
             >
               <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-cor-primaria/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
@@ -212,7 +212,7 @@ function renderCards(items: ClassGroup[]): string {
                 </div>
 
                 ${formatFaixaEtaria(aula) ? `
-                  <p class="text-cor-texto/70 text-xs md:text-sm mt-1 mb-4">
+                  <p class="text-cor-texto/75 text-xs md:text-sm mt-1 mb-4">
                     Faixa etaria: <span class="text-cor-texto/90 font-semibold">${formatFaixaEtaria(aula)}</span>
                   </p>
                 ` : ''}
@@ -223,11 +223,11 @@ function renderCards(items: ClassGroup[]): string {
                       (slot) => `
                         <div class="surface-card-soft rounded-xl px-3 py-2.5">
                           <div class="flex flex-col gap-1.5">
-                            <p class="text-cor-texto/55 text-[11px] uppercase tracking-wider">Dias</p>
+                            <p class="text-cor-texto/70 text-[11px] uppercase tracking-wider">Dias</p>
                             <p class="text-cor-texto/90 text-sm md:text-base font-medium">${formatDaysForUx(slot.dias)}</p>
                           </div>
                           <div class="mt-2 flex flex-col gap-1">
-                            <p class="text-cor-texto/55 text-[11px] uppercase tracking-wider">Horario</p>
+                            <p class="text-cor-texto/70 text-[11px] uppercase tracking-wider">Horario</p>
                             <p class="text-cor-primaria font-bold text-sm md:text-base">${formatHorario(slot.horario)}</p>
                           </div>
                         </div>
@@ -242,9 +242,9 @@ function renderCards(items: ClassGroup[]): string {
                   data-turma="${escapeAttribute(formatTurmaLabel(aula.turma))}"
                   data-faixa-etaria="${escapeAttribute(formatFaixaEtaria(aula) ?? '')}"
                   data-horarios="${escapeAttribute(formatScheduleSummary(aula))}"
-                  class="mt-5 inline-flex items-center gap-2 text-cor-primaria font-semibold text-sm md:text-base transition-transform duration-300 group-hover:translate-x-1"
+                  class="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-cor-primaria px-5 text-cor-escura font-extrabold text-sm md:text-base transition-colors duration-300 hover:bg-cor-destaque"
                 >
-                  Quero agendar
+                  Agendar aula experimental
                   <span>→</span>
                 </button>
               </div>
@@ -256,18 +256,18 @@ function renderCards(items: ClassGroup[]): string {
 
 export function ClassesSection() {
   return `
-    <section id="aulas" data-anim="classes" class="relative py-24 md:py-32 bg-cor-fundo">
+    <section id="aulas" data-anim="classes" class="relative py-20 md:py-32 bg-cor-fundo scroll-mt-24 md:scroll-mt-28">
       <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <div class="max-w-3xl mb-12 md:mb-16">
+        <div class="max-w-3xl mb-9 md:mb-16">
           <div data-anim="classes-line" class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-4"></div>
           <span data-anim="classes-kicker" class="block text-cor-primaria text-xs md:text-sm tracking-[0.18em] uppercase font-semibold">
             Nossas Aulas
           </span>
           <h2 data-anim="classes-title" class="mt-4 text-3xl sm:text-4xl md:text-5xl font-black text-cor-texto tracking-tight">
-            HORARIOS
+            AULAS E HORARIOS
           </h2>
-          <p data-anim="classes-subtitle" class="mt-4 text-cor-texto/70 text-base md:text-lg max-w-2xl">
-            Escolha a turma que  se encaixa com sua idade!
+          <p data-anim="classes-subtitle" class="mt-4 text-cor-texto/80 text-base md:text-lg max-w-2xl">
+            Escolha a turma pela idade e mande uma mensagem para marcar sua aula experimental.
           </p>
         </div>
 
@@ -277,21 +277,21 @@ export function ClassesSection() {
           </div>
         </div>
 
-        <div data-anim="classes-footnote" class="text-center mt-12 md:mt-14">
-          <p class="text-cor-texto/55 text-xs md:text-sm tracking-wide uppercase">
+        <div data-anim="classes-footnote" class="text-center mt-10 md:mt-14">
+          <p class="text-cor-texto/70 text-xs md:text-sm tracking-wide uppercase">
             Aula experimental gratuita para novos alunos
           </p>
         </div>
 
         <div data-schedule-modal class="hidden fixed inset-0 z-[80] p-0 md:p-6">
           <div data-schedule-backdrop class="absolute inset-0 bg-cor-fundo/85 backdrop-blur-sm"></div>
-          <div class="surface-card relative w-full max-w-2xl mx-auto mt-16 md:mt-10 rounded-t-3xl md:rounded-3xl shadow-2xl p-4 md:p-7 max-h-[86vh] md:max-h-[88vh] overflow-y-auto pb-[max(env(safe-area-inset-bottom),1rem)]">
+          <div class="surface-card relative w-full max-w-2xl mx-auto mt-16 md:mt-10 rounded-t-3xl md:rounded-3xl shadow-2xl p-5 md:p-7 max-h-[86vh] md:max-h-[88vh] overflow-y-auto pb-[max(env(safe-area-inset-bottom),1rem)]">
             <div class="flex items-start justify-between gap-4">
               <div>
                 <p class="text-[11px] uppercase tracking-[0.14em] text-cor-primaria font-semibold">Agendamento rapido</p>
                 <h3 class="text-cor-texto text-lg md:text-2xl font-black mt-2">Enviar mensagem no WhatsApp</h3>
               </div>
-              <button type="button" data-schedule-close class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-cor-texto/20 text-cor-texto/70 hover:text-cor-primaria hover:border-cor-primaria/40 leading-none">
+              <button type="button" data-schedule-close class="inline-flex items-center justify-center w-12 h-12 rounded-full border border-cor-texto/20 text-cor-texto/70 hover:text-cor-primaria hover:border-cor-primaria/40 leading-none">
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
                 </svg>
@@ -313,7 +313,7 @@ export function ClassesSection() {
                   data-schedule-name
                   type="text"
                   maxlength="80"
-                  class="w-full rounded-xl border border-cor-texto/15 bg-cor-fundo/55 text-cor-texto text-sm md:text-base p-3 focus:outline-none focus:border-cor-primaria"
+                  class="w-full min-h-12 rounded-xl border border-cor-texto/15 bg-cor-fundo/55 text-cor-texto text-sm md:text-base p-3 focus:outline-none focus:border-cor-primaria"
                   placeholder="Ex.: Maria"
                 />
               </div>
@@ -330,18 +330,18 @@ export function ClassesSection() {
                   min="2"
                   max="90"
                   required
-                  class="w-full rounded-xl border border-cor-texto/15 bg-cor-fundo/55 text-cor-texto text-sm md:text-base p-3 focus:outline-none focus:border-cor-primaria"
+                  class="w-full min-h-12 rounded-xl border border-cor-texto/15 bg-cor-fundo/55 text-cor-texto text-sm md:text-base p-3 focus:outline-none focus:border-cor-primaria"
                   placeholder="Ex.: 10"
                 />
               </div>
 
               <div class="mt-5 flex flex-col sm:flex-row gap-3 sm:justify-end">
-                <button type="button" data-schedule-close class="px-5 py-3 rounded-full border border-cor-texto/20 text-cor-texto/80 text-sm md:text-base hover:border-cor-primaria hover:text-cor-primaria transition-colors">
+                <button type="button" data-schedule-close class="min-h-12 px-5 py-3 rounded-full border border-cor-texto/20 text-cor-texto/80 text-sm md:text-base hover:border-cor-primaria hover:text-cor-primaria transition-colors">
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-cor-primaria text-cor-escura font-bold text-sm md:text-base hover:bg-cor-destaque transition-colors"
+                  class="inline-flex min-h-12 items-center justify-center gap-2 px-5 py-3 rounded-full bg-cor-primaria text-cor-escura font-bold text-sm md:text-base hover:bg-cor-destaque transition-colors"
                 >
                   Pedir aula experimental
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">

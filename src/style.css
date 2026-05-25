@@ -18,6 +18,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 html.js-loaded body *,
 html.js-loaded header,
 html.js-loaded nav,
@@ -33,6 +38,8 @@ img.opacity-0 {
 
 img {
   transition: opacity 0.5s ease-out;
+  max-width: 100%;
+  display: block;
 }
 
 #mobile-menu {

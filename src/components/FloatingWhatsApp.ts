@@ -6,7 +6,7 @@ import {
 const DEFAULT_WHATSAPP = import.meta.env.VITE_WHATSAPP_NUMBER || '5541999644301';
 
 function buildDefaultMessage() {
-  return encodeURIComponent('Ola! Vim pelo site e gostaria de mais informaçoẽs!');
+  return encodeURIComponent('Ola! Vim pelo site e gostaria de mais informacoes.');
 }
 
 function buildWhatsappUrl(number: string): string {
@@ -23,7 +23,7 @@ function getOrCreateFloatingButton(): HTMLAnchorElement {
   button.setAttribute('rel', 'noopener noreferrer');
   button.setAttribute('aria-label', 'Falar no WhatsApp');
   button.className = [
-    'fixed right-4 bottom-5 md:bottom-6 z-[90]',
+    'fixed right-4 bottom-[max(env(safe-area-inset-bottom),1rem)] md:bottom-6 z-[90]',
     'group inline-flex items-center justify-center w-14 h-14 rounded-full',
     'bg-[#25D366] text-white shadow-[0_16px_34px_rgba(37,211,102,0.38)]',
     'border border-white/30 transition-all duration-300 hover:scale-105',

@@ -1,5 +1,5 @@
 // components/MobileMenu.ts
-import { NAV_LINKS } from '../../data/constants';
+import { MATRICULA_LINK, NAV_LINKS } from '../../data/constants';
 
 export function MobileMenu() {
   return `
@@ -18,10 +18,10 @@ export function MobileMenu() {
       >
         
         <!-- Header do menu com close button estilizado -->
-        <div class="flex items-center justify-between p-6 border-b border-cor-primaria/20">
+        <div class="flex items-center justify-between p-5 border-b border-cor-primaria/20">
           <span class="text-cor-primaria font-bold text-lg tracking-widest">MENU</span>
           
-          <button id="close-menu" class="group relative w-10 h-10 flex items-center justify-center">
+          <button id="close-menu" class="group relative w-12 h-12 flex items-center justify-center">
             <span class="sr-only">Fechar menu</span>
             
             <!-- Anel externo animado -->
@@ -37,11 +37,25 @@ export function MobileMenu() {
         </div>
 
         <!-- Links de navegação -->
-        <nav class="flex flex-col p-8 space-y-6" aria-label="Links principais">
+        <nav class="flex flex-col p-6 space-y-3" aria-label="Links principais">
+          <a
+            href="#aulas"
+            class="inline-flex min-h-12 items-center justify-center rounded-full bg-cor-primaria px-5 text-sm font-extrabold uppercase tracking-[0.12em] text-cor-escura"
+          >
+            Agendar aula experimental
+          </a>
+          <a
+            href="${MATRICULA_LINK}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex min-h-12 items-center justify-center rounded-full border border-cor-primaria/45 px-5 text-sm font-bold uppercase tracking-[0.12em] text-cor-primaria"
+          >
+            Fazer matricula
+          </a>
           ${NAV_LINKS.map((link, index) => `
             <a 
               href="${link.href}" 
-              class="menu-link group relative flex items-center text-3xl md:text-4xl font-light text-cor-texto/80 hover:text-cor-primaria transition-all duration-300 transform hover:translate-x-4"
+              class="menu-link group relative flex min-h-12 items-center text-2xl md:text-4xl font-light text-cor-texto/85 hover:text-cor-primaria transition-all duration-300 transform hover:translate-x-4"
               style="transition-delay: ${index * 50}ms"
             >
               <!-- Indicador animado -->
@@ -57,12 +71,12 @@ export function MobileMenu() {
         </nav>
 
         <!-- Social links - versão clean e premium (sem YouTube) -->
-<div class="px-8 mt-auto border-t border-cor-primaria/10 pt-8 md:pt-12 pb-[max(env(safe-area-inset-bottom),2rem)] mb-20 md:mb-8 -translate-y-2 md:translate-y-0">
-  <p class="text-center text-cor-texto/60 text-sm font-medium uppercase tracking-[0.4em] mb-5">
+<div class="px-8 mt-auto border-t border-cor-primaria/10 pt-6 md:pt-12 pb-[max(env(safe-area-inset-bottom),2rem)] mb-20 md:mb-8 -translate-y-2 md:translate-y-0">
+  <p class="text-center text-cor-texto/70 text-sm font-medium uppercase tracking-[0.35em] mb-5">
     Siga-nos
   </p>
 
-  <div class="flex justify-center items-center gap-10">
+  <div class="flex justify-center items-center gap-8">
     <!-- Instagram -->
     <a 
       href="https://www.instagram.com/espacocultural_cn10" 

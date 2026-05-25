@@ -59,7 +59,7 @@ function renderEventCard(event: EventItem, isNextEvent: boolean): string {
     : null;
 
   return `
-    <article data-event-card data-event-id="${escapeHtml(event.id)}" class="surface-card flex-[0_0_88%] sm:flex-[0_0_72%] lg:flex-[0_0_calc(50%-0.75rem)] xl:flex-[0_0_calc(33.333%-1rem)] snap-start rounded-2xl overflow-hidden ${event.isPast ? 'opacity-85' : ''}">
+    <article data-event-card data-event-id="${escapeHtml(event.id)}" class="surface-card flex-[0_0_86%] sm:flex-[0_0_72%] lg:flex-[0_0_calc(50%-0.75rem)] xl:flex-[0_0_calc(33.333%-1rem)] snap-start rounded-2xl overflow-hidden ${event.isPast ? 'opacity-85' : ''}">
       <div class="relative h-44 md:h-52">
         <img src="${escapeHtml(event.image)}" alt="${escapeHtml(event.title)}" class="w-full h-full object-cover ${event.isPast ? 'grayscale' : ''}" style="object-position:${event.imageFocusX}% ${event.imageFocusY}%;" loading="lazy">
         <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/85 via-cor-fundo/30 to-transparent"></div>
@@ -83,7 +83,7 @@ function renderEventCard(event: EventItem, isNextEvent: boolean): string {
 
       <div class="p-5 md:p-6">
         <h3 class="text-cor-texto text-lg md:text-xl font-bold leading-tight">${escapeHtml(event.title)}</h3>
-        <p class="mt-3 text-cor-texto/75 text-sm md:text-base leading-relaxed line-clamp-3">${linkifyText(event.description)}</p>
+        <p class="mt-3 text-cor-texto/80 text-sm md:text-base leading-relaxed line-clamp-3">${linkifyText(event.description)}</p>
         <div class="mt-2 min-h-[16px] text-[11px]">
           ${showMeta
             ? `
@@ -108,7 +108,7 @@ function renderEventCard(event: EventItem, isNextEvent: boolean): string {
             type="button"
             data-open-event
             data-event-id="${escapeHtml(event.id)}"
-            class="inline-flex items-center gap-2 text-cor-primaria font-semibold text-sm md:text-base hover:translate-x-1 transition-transform"
+            class="inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-cor-primaria font-semibold text-sm md:text-base hover:translate-x-1 transition-transform"
           >
             Ver detalhes
             <span>→</span>
@@ -116,11 +116,11 @@ function renderEventCard(event: EventItem, isNextEvent: boolean): string {
 
           ${canSubscribe
             ? `
-            <a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="ml-auto inline-flex h-10 items-center gap-2 px-4 rounded-full bg-cor-primaria text-cor-escura text-xs md:text-sm font-bold hover:bg-cor-destaque transition-colors">
+            <a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="ml-auto inline-flex min-h-11 items-center gap-2 px-4 rounded-full bg-cor-primaria text-cor-escura text-xs md:text-sm font-bold hover:bg-cor-destaque transition-colors">
               Inscrever
             </a>
           `
-            : `<span class="ml-auto inline-flex h-10 items-center rounded-full border border-cor-texto/20 px-4 text-cor-texto/60 text-xs md:text-sm">${event.isPast ? 'Evento finalizado' : 'Sem inscricao'}</span>`}
+            : `<span class="ml-auto inline-flex min-h-11 items-center rounded-full border border-cor-texto/20 px-4 text-cor-texto/70 text-xs md:text-sm">${event.isPast ? 'Evento finalizado' : 'Sem inscricao'}</span>`}
         </div>
       </div>
     </article>
@@ -136,15 +136,16 @@ function renderEvents(items: EventItem[]): string {
 
   return `
     <div class="relative">
+      <p class="mb-3 text-cor-texto/70 text-xs uppercase tracking-[0.12em] md:hidden">Arraste para ver mais eventos</p>
       <div data-events-track class="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         ${items.map((event, index) => renderEventCard(event, nextIndex !== -1 && index === nextIndex)).join('')}
       </div>
 
       <div class="mt-5 flex items-center justify-center md:justify-end gap-2">
-        <button type="button" data-events-prev class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-cor-texto/25 bg-cor-fundo/70 text-cor-texto/90 hover:text-cor-primaria hover:border-cor-primaria/40 transition-colors" aria-label="Evento anterior">
+        <button type="button" data-events-prev class="inline-flex items-center justify-center w-12 h-12 rounded-full border border-cor-texto/25 bg-cor-fundo/70 text-cor-texto/90 hover:text-cor-primaria hover:border-cor-primaria/40 transition-colors" aria-label="Evento anterior">
           ❮
         </button>
-        <button type="button" data-events-next class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-cor-texto/25 bg-cor-fundo/70 text-cor-texto/90 hover:text-cor-primaria hover:border-cor-primaria/40 transition-colors" aria-label="Proximo evento">
+        <button type="button" data-events-next class="inline-flex items-center justify-center w-12 h-12 rounded-full border border-cor-texto/25 bg-cor-fundo/70 text-cor-texto/90 hover:text-cor-primaria hover:border-cor-primaria/40 transition-colors" aria-label="Proximo evento">
           ❯
         </button>
       </div>
@@ -163,7 +164,7 @@ function renderModal(event: EventItem): string {
     <div data-event-modal class="fixed inset-0 z-[100] hidden">
       <div data-event-modal-backdrop class="absolute inset-0 bg-cor-fundo/88 backdrop-blur-sm"></div>
       <div class="relative z-10 mx-auto mt-8 md:mt-12 w-[94%] md:w-full max-w-3xl max-h-[86vh] overflow-y-auto rounded-3xl surface-card p-4 md:p-6">
-        <button type="button" data-event-modal-close class="absolute top-3 right-3 inline-flex items-center justify-center w-9 h-9 rounded-full border border-cor-texto/20 text-cor-texto/70 hover:text-cor-primaria hover:border-cor-primaria/40 leading-none">
+        <button type="button" data-event-modal-close class="absolute top-3 right-3 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cor-texto/20 bg-cor-fundo/70 text-cor-texto/80 hover:text-cor-primaria hover:border-cor-primaria/40 leading-none">
           <span aria-hidden="true">×</span>
         </button>
 
@@ -191,7 +192,7 @@ function renderModal(event: EventItem): string {
 
           <div class="mt-5 flex flex-wrap items-center gap-3">
             ${canSubscribe
-              ? `<a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cor-primaria text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Fazer inscricao <span>→</span></a>`
+              ? `<a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center gap-2 px-5 py-3 rounded-full bg-cor-primaria text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Fazer inscricao <span>→</span></a>`
               : `<span class="text-cor-texto/65 text-sm">${event.isPast ? 'Evento finalizado' : 'Evento sem inscricao obrigatoria'}</span>`}
           </div>
         </div>
@@ -199,7 +200,7 @@ function renderModal(event: EventItem): string {
     </div>
 
     <div data-event-image-modal class="fixed inset-0 z-[120] hidden items-center justify-center p-4 bg-black/90">
-      <button type="button" data-event-image-close class="absolute top-4 right-4 text-white/85 hover:text-white text-2xl">×</button>
+      <button type="button" data-event-image-close class="absolute top-4 right-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white/85 hover:text-white text-2xl">×</button>
       <img data-event-image-content src="${escapeHtml(event.image)}" alt="${escapeHtml(event.title)}" class="max-w-full max-h-[88vh] object-contain rounded-xl shadow-2xl">
     </div>
   `;
@@ -322,19 +323,19 @@ function setupEventModal(section: HTMLElement, eventsById: Map<string, EventItem
 
 export function EventsSection() {
   return `
-    <section id="eventos" class="relative py-24 md:py-32 bg-cor-fundo scroll-mt-24 md:scroll-mt-28 overflow-hidden">
+    <section id="eventos" class="relative py-20 md:py-32 bg-cor-fundo scroll-mt-24 md:scroll-mt-28 overflow-hidden">
       <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <div class="max-w-3xl mb-10 md:mb-12">
+        <div class="max-w-3xl mb-9 md:mb-12">
           <div class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-4"></div>
           <span class="block text-cor-primaria text-xs md:text-sm tracking-[0.18em] uppercase font-semibold">Proximos eventos</span>
           <h2 class="mt-4 text-3xl sm:text-4xl md:text-5xl font-black text-cor-texto tracking-tight">AGENDA CULTURAL</h2>
-          <p class="mt-4 text-cor-texto/70 text-base md:text-lg max-w-2xl">
+          <p class="mt-4 text-cor-texto/80 text-base md:text-lg max-w-2xl">
             Eventos, rodas e encontros especiais para fortalecer a comunidade.
           </p>
           <a
             data-route
             href="/eventos"
-            class="mt-4 inline-flex items-center gap-2 text-cor-primaria font-semibold text-sm md:text-base hover:translate-x-1 transition-transform"
+            class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-cor-primaria font-semibold text-sm md:text-base hover:translate-x-1 transition-transform"
           >
             Ver todos eventos
             <span>→</span>

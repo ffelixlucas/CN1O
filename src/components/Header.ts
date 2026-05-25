@@ -1,10 +1,10 @@
 // components/Header.ts
-import { NAV_LINKS, STORE_LINK } from '../data/constants';
+import { MATRICULA_LINK, NAV_LINKS, STORE_LINK } from '../data/constants';
 import { MobileMenu } from '../components/mobileMenu/MobileMenu';
 
 export function Header() {
   return `
-  <header data-anim="hero" class="relative min-h-[100svh] flex flex-col bg-cor-fundo overflow-hidden">
+  <header data-anim="hero" class="relative min-h-[92svh] md:min-h-[100svh] flex flex-col bg-cor-fundo overflow-hidden">
     <!-- Slideshow container -->
     <div class="absolute inset-0 z-0">
       <div 
@@ -20,15 +20,15 @@ export function Header() {
       ></div>
     
       <!-- Overlays -->
-      <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/90 via-cor-fundo/50 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-cor-fundo/92 via-cor-fundo/58 to-cor-fundo/18"></div>
       <div class="absolute inset-0 bg-gradient-to-br from-cor-secundaria/30 via-transparent to-transparent mix-blend-overlay"></div>
     </div>
 
     <!-- Navbar -->
-    <nav data-anim="hero-nav" class="relative z-20 flex items-center justify-between px-6 py-5 md:py-8 max-w-7xl mx-auto w-full">
-      <div class="flex items-center gap-4">
+    <nav data-anim="hero-nav" class="relative z-20 flex max-w-[100vw] items-center justify-between gap-3 px-5 py-4 md:px-6 md:py-8 md:max-w-7xl mx-auto w-full">
+      <div class="flex shrink-0 items-center gap-4">
         <div class="inline-flex items-center justify-center rounded-xl bg-[#FFFFFF] p-1.5 md:p-2 shadow-[0_6px_14px_rgba(0,0,0,0.2)] ring-1 ring-white/55">
-          <img src="/media/logo.png" class="h-20 md:h-22 w-auto" alt="Capoeira Nota 10" loading="eager" fetchpriority="high" />
+          <img src="/media/logo.png" class="h-14 sm:h-16 md:h-22 w-auto" alt="Capoeira Nota 10" loading="eager" fetchpriority="high" />
         </div>
       </div>
 
@@ -43,24 +43,26 @@ export function Header() {
         `).join('')}
       </div>
 
-      <button
-        id="menu-btn"
-        aria-label="Abrir menu de navegação"
-        aria-expanded="false"
-        aria-controls="menu-panel"
-        class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-cor-primaria/35 text-cor-primaria hover:text-cor-destaque hover:border-cor-destaque/55 transition-colors"
-      >
-        <svg class="w-5.5 h-5.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-        </svg>
-      </button>
+      <div class="md:hidden ml-auto flex shrink-0 items-center gap-2">
+        <button
+          id="menu-btn"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+          aria-controls="menu-panel"
+          class="inline-flex items-center justify-center w-11 h-11 rounded-full border border-cor-primaria/35 text-cor-primaria hover:text-cor-destaque hover:border-cor-destaque/55 transition-colors"
+        >
+          <svg class="w-5.5 h-5.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
     </nav>
 
     ${MobileMenu()}
 
     <!-- Hero content - agora com flex-grow-0 e mt-auto para controle melhor -->
-    <div class="relative z-10 flex-1 flex items-center px-6 py-8 md:py-0 max-w-7xl mx-auto w-full">
-      <div class="max-w-3xl space-y-6 md:space-y-8">
+    <div class="relative z-10 flex-1 flex items-center px-5 py-6 md:px-6 md:py-0 max-w-7xl mx-auto w-full">
+      <div class="max-w-3xl space-y-5 md:space-y-8">
 
         <div data-anim="hero-line" class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-2"></div>
 
@@ -70,18 +72,31 @@ export function Header() {
         </h1>
 
         <p data-anim="hero-copy" class="text-base md:text-xl text-cor-texto max-w-xl font-bold leading-relaxed">
-          Arte, cultura e transformação social através da capoeira
+          Aulas de capoeira para criancas, jovens e adultos em Pinhais.
         </p>
 
-        <div data-anim="hero-cta-group" class="grid grid-cols-2 gap-3 pt-2 sm:flex sm:flex-row sm:gap-4">
+        <div data-anim="hero-cta-group" class="grid gap-3 pt-2 sm:flex sm:flex-row sm:flex-wrap sm:gap-4">
           <a 
-            href="#sobre" 
+            href="#aulas" 
             data-anim="hero-cta"
-            class="min-w-0 bg-cor-primaria hover:bg-cor-destaque text-cor-escura px-4 py-3 md:px-9 md:py-5 rounded-full font-semibold uppercase tracking-[0.14em] text-[11px] sm:text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/30 inline-flex items-center justify-center gap-2 sm:gap-3 group text-center min-h-12"
+            class="min-w-0 bg-cor-primaria hover:bg-cor-destaque text-cor-escura px-5 py-4 md:px-9 md:py-5 rounded-full font-extrabold uppercase tracking-[0.12em] text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/30 inline-flex items-center justify-center gap-2 sm:gap-3 group text-center min-h-12"
           >
-            <span class="leading-tight">Conhecer a escola</span>
+            <span class="leading-tight">Agendar aula experimental</span>
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-y-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 6V18M12 18L17 13M12 18L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+
+          <a
+            href="${MATRICULA_LINK}"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-anim="hero-cta"
+            class="min-w-0 border border-cor-primaria/50 bg-cor-fundo/55 hover:bg-cor-secundaria/70 text-cor-texto px-5 py-4 md:px-9 md:py-5 rounded-full font-bold uppercase tracking-[0.12em] text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/20 inline-flex items-center justify-center gap-2 sm:gap-3 group text-center min-h-12 backdrop-blur-sm"
+          >
+            <span class="leading-tight">Fazer matricula</span>
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H8.5M17 7V15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
 
@@ -90,7 +105,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             data-anim="hero-cta"
-            class="min-w-0 border border-cor-primaria/50 bg-cor-fundo/45 hover:bg-cor-secundaria/70 text-cor-texto px-4 py-3 md:px-9 md:py-5 rounded-full font-semibold uppercase tracking-[0.14em] text-[11px] sm:text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/20 inline-flex items-center justify-center gap-2 sm:gap-3 group text-center min-h-12 backdrop-blur-sm"
+            class="min-w-0 border border-cor-texto/25 bg-cor-fundo/35 hover:bg-cor-secundaria/70 text-cor-texto px-5 py-4 md:px-7 md:py-5 rounded-full font-bold uppercase tracking-[0.12em] text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-cor-secundaria/20 inline-flex items-center justify-center gap-2 sm:gap-3 group text-center min-h-12 backdrop-blur-sm"
           >
             <span class="leading-tight">Acessar loja</span>
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -102,7 +117,7 @@ export function Header() {
     </div>
 
     <!-- Footer hero - ajustado com z-index mais alto e padding inferior -->
-    <div class="relative z-20 flex justify-between items-center pt-4 pb-6 md:pb-8 px-6 max-w-7xl mx-auto w-full bg-gradient-to-t from-cor-fundo/20 to-transparent">
+    <div class="relative z-20 hidden md:flex justify-between items-center pt-4 pb-8 px-6 max-w-7xl mx-auto w-full bg-gradient-to-t from-cor-fundo/20 to-transparent">
       <span data-anim="hero-hint" class="text-cor-texto/70 text-xs md:text-sm uppercase tracking-widest flex items-center gap-2">
         <svg class="w-3.5 h-3.5 animate-bounce" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M12 6V18M12 18L17 13M12 18L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

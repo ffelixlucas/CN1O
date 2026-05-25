@@ -1,5 +1,6 @@
 const ADMIN_URL = import.meta.env.VITE_ADMIN_URL;
 const STORE_URL = import.meta.env.VITE_STORE_URL || `${ADMIN_URL}/loja/cn10`;
+const MATRICULA_URL = `${ADMIN_URL}/matricula/cn10`;
 
 export const NAV_LINKS = [
   { href: '#sobre', label: 'Sobre' },
@@ -8,7 +9,7 @@ export const NAV_LINKS = [
   { href: '#noticias', label: 'Noticias' },
   { href: '#loja', label: 'Loja' },
   { href: '#localizacao', label: 'Localizacao' },
-  { href: `${ADMIN_URL}/matricula/cn10`, label: 'Matrícula' },
+  { href: MATRICULA_URL, label: 'Matrícula' },
 ];
 
 export const CLASS_SCHEDULE = [
@@ -17,3 +18,4 @@ export const CLASS_SCHEDULE = [
 ];
 
 export const STORE_LINK = STORE_URL;
+export const MATRICULA_LINK = MATRICULA_URL;

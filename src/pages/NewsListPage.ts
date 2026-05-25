@@ -38,8 +38,8 @@ function renderMobileTimelineItem(item: NoticeItem, index: number): string {
           <div class="p-4">
             <p class="text-[10px] uppercase tracking-[0.12em] text-cor-primaria font-semibold">${escapeHtml(item.categoria)}</p>
             <h2 class="mt-2 text-cor-texto ${isFeatured ? 'text-xl' : 'text-lg'} font-black leading-tight">${escapeHtml(item.titulo)}</h2>
-            <p class="mt-2 text-cor-texto/75 text-sm leading-relaxed line-clamp-3">${escapeHtml(item.resumo)}</p>
-            <p class="mt-3 text-[10px] uppercase tracking-[0.12em] text-cor-texto/55">${escapeHtml(item.autor)} • ${item.leituraMin} min</p>
+            <p class="mt-2 text-cor-texto/80 text-sm leading-relaxed line-clamp-3">${escapeHtml(item.resumo)}</p>
+            <p class="mt-3 text-[10px] uppercase tracking-[0.12em] text-cor-texto/70">${escapeHtml(item.autor)} • ${item.leituraMin} min</p>
             <span class="mt-4 inline-flex items-center gap-1.5 text-cor-primaria text-sm font-semibold group-hover:translate-x-1 transition-transform">
               Ler noticia
               <span>→</span>
@@ -75,15 +75,15 @@ function renderList(items: NoticeItem[]): string {
         <div class="p-6 md:p-8">
           <p class="text-[11px] uppercase tracking-[0.14em] text-cor-primaria font-semibold">${escapeHtml(featured.categoria)}</p>
           <h2 class="mt-3 text-cor-texto text-2xl md:text-4xl font-black leading-tight">${escapeHtml(featured.titulo)}</h2>
-          <p class="mt-3 text-cor-texto/75 text-sm md:text-base leading-relaxed line-clamp-2 md:line-clamp-3">${escapeHtml(featured.resumo)}</p>
-          <div class="mt-4 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-cor-texto/60">
+          <p class="mt-3 text-cor-texto/80 text-sm md:text-base leading-relaxed line-clamp-2 md:line-clamp-3">${escapeHtml(featured.resumo)}</p>
+          <div class="mt-4 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-cor-texto/70">
             <span>${escapeHtml(featured.dataLabel)}${featured.horarioLabel ? ` • ${escapeHtml(featured.horarioLabel)}` : ''}</span>
             <span class="inline-block w-1 h-1 rounded-full bg-cor-texto/40"></span>
             <span>${escapeHtml(featured.autor)}</span>
             <span class="inline-block w-1 h-1 rounded-full bg-cor-texto/40"></span>
             <span>${featured.leituraMin} min de leitura</span>
           </div>
-          <span class="mt-5 inline-flex items-center gap-2 text-cor-primaria font-semibold text-sm group-hover:translate-x-1 transition-transform">
+          <span class="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-cor-primaria font-semibold text-sm group-hover:translate-x-1 transition-transform">
             Ler materia completa
             <span>→</span>
           </span>
@@ -99,11 +99,11 @@ function renderList(items: NoticeItem[]): string {
           </div>
           <div class="p-5">
             <p class="text-[11px] uppercase tracking-[0.14em] text-cor-primaria font-semibold">${escapeHtml(item.categoria)}</p>
-            <p class="text-[11px] uppercase tracking-[0.14em] text-cor-texto/60">${escapeHtml(item.dataLabel)}${item.horarioLabel ? ` • ${escapeHtml(item.horarioLabel)}` : ''}</p>
+            <p class="text-[11px] uppercase tracking-[0.14em] text-cor-texto/70">${escapeHtml(item.dataLabel)}${item.horarioLabel ? ` • ${escapeHtml(item.horarioLabel)}` : ''}</p>
             <h2 class="mt-2 text-cor-texto text-xl font-bold leading-tight">${escapeHtml(item.titulo)}</h2>
-            <p class="mt-2 text-cor-texto/75 text-sm leading-relaxed line-clamp-2">${escapeHtml(item.resumo)}</p>
-            <p class="mt-3 text-[11px] uppercase tracking-[0.12em] text-cor-texto/55">${escapeHtml(item.autor)} • ${item.leituraMin} min</p>
-            <span class="mt-4 inline-flex items-center gap-2 text-cor-primaria font-semibold text-sm group-hover:translate-x-1 transition-transform">
+            <p class="mt-2 text-cor-texto/80 text-sm leading-relaxed line-clamp-2">${escapeHtml(item.resumo)}</p>
+            <p class="mt-3 text-[11px] uppercase tracking-[0.12em] text-cor-texto/70">${escapeHtml(item.autor)} • ${item.leituraMin} min</p>
+            <span class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-cor-primaria font-semibold text-sm group-hover:translate-x-1 transition-transform">
               Ler noticia
               <span>→</span>
             </span>
@@ -117,12 +117,12 @@ function renderList(items: NoticeItem[]): string {
 
 export function NewsListPage() {
   return `
-    <main class="min-h-screen bg-cor-fundo text-cor-texto py-20 md:py-24">
+    <main class="min-h-screen bg-cor-fundo text-cor-texto py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
-        <a data-route href="/" class="inline-flex items-center gap-2 text-cor-texto/70 hover:text-cor-primaria text-sm mb-8">← Voltar para home</a>
+        <a data-route href="/" class="inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-cor-texto/75 hover:text-cor-primaria text-sm mb-8">← Voltar para home</a>
         <p class="text-cor-primaria text-xs md:text-sm tracking-[0.18em] uppercase font-semibold">Blog do Espaco Cultural</p>
         <h1 class="mt-3 text-3xl sm:text-4xl md:text-5xl font-black">Noticias</h1>
-        <p class="mt-4 text-cor-texto/75 max-w-3xl">Acompanhe nossas publicacoes, eventos e novidades do espaco cultural.</p>
+        <p class="mt-4 text-cor-texto/80 max-w-3xl">Acompanhe noticias, eventos e novidades do espaco cultural.</p>
 
         <div data-news-list-root class="mt-10">
           <p class="text-cor-texto/70">Carregando noticias...</p>

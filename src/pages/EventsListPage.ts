@@ -89,13 +89,13 @@ function renderCard(item: EventItem): string {
       </div>
       <div class="p-5">
         <h3 class="text-cor-texto text-xl font-bold leading-tight">${escapeHtml(item.title)}</h3>
-        <p class="mt-2 text-cor-texto/75 line-clamp-2">${escapeHtml(item.description)}</p>
-        <p class="mt-2 text-cor-texto/75">${escapeHtml(item.local || 'Local a definir')}</p>
+        <p class="mt-2 text-cor-texto/80 line-clamp-2">${escapeHtml(item.description)}</p>
+        <p class="mt-2 text-cor-texto/80">${escapeHtml(item.local || 'Local a definir')}</p>
 
         ${item.limiteInscritos ? `
           <div class="mt-3 rounded-xl border border-[#8fffc8]/20 bg-cor-fundo/25 p-3 space-y-1.5">
             <p class="text-sm text-cor-texto/85">Inscritos <strong class="text-[#8fffc8]">${escapeHtml(inscritos)}</strong></p>
-            ${item.inscricoesAteLabel ? `<p class="text-sm text-cor-texto/75">Inscricoes ate dia <strong>${escapeHtml(item.inscricoesAteLabel)}</strong></p>` : ''}
+            ${item.inscricoesAteLabel ? `<p class="text-sm text-cor-texto/80">Inscricoes ate dia <strong>${escapeHtml(item.inscricoesAteLabel)}</strong></p>` : ''}
             <p class="text-sm font-bold text-[#8fffc8] tabular-nums" data-page-event-countdown data-deadline="${item.inscricoesAteTs ?? ''}">
               ${escapeHtml(formatCountdown(item.inscricoesAteTs))}
             </p>
@@ -107,13 +107,13 @@ function renderCard(item: EventItem): string {
             type="button"
             data-open-event
             data-event-id="${escapeHtml(item.id)}"
-            class="text-sm text-cor-primaria font-semibold hover:underline"
+            class="inline-flex min-h-11 items-center rounded-full px-1 text-sm text-cor-primaria font-semibold hover:underline"
           >
             Ver detalhes →
           </button>
           ${canSubscribe
-            ? `<a href="${escapeHtml(item.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center rounded-full bg-cor-primaria px-4 text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Inscrever</a>`
-            : `<span class="inline-flex h-10 items-center rounded-full border border-cor-texto/20 px-4 text-cor-texto/60 text-sm">${item.isPast ? 'Finalizado' : 'Sem inscricao'}</span>`}
+            ? `<a href="${escapeHtml(item.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-full bg-cor-primaria px-4 text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Inscrever</a>`
+            : `<span class="inline-flex min-h-11 items-center rounded-full border border-cor-texto/20 px-4 text-cor-texto/70 text-sm">${item.isPast ? 'Finalizado' : 'Sem inscricao'}</span>`}
         </div>
       </div>
     </article>
@@ -129,11 +129,11 @@ function renderToolbar(tab: EventTab, query: string): string {
   return `
     <div class="surface-card rounded-2xl p-4 mt-8 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
       <div class="inline-flex rounded-full border border-cor-texto/20 p-1 w-fit">
-        <button data-events-tab="todos" class="px-3 py-1.5 rounded-full text-sm ${tab === 'todos' ? 'bg-cor-primaria text-cor-escura font-bold' : 'text-cor-texto/75'}">Todos</button>
-        <button data-events-tab="abertos" class="px-3 py-1.5 rounded-full text-sm ${tab === 'abertos' ? 'bg-cor-primaria text-cor-escura font-bold' : 'text-cor-texto/75'}">Abertos</button>
-        <button data-events-tab="encerrados" class="px-3 py-1.5 rounded-full text-sm ${tab === 'encerrados' ? 'bg-cor-primaria text-cor-escura font-bold' : 'text-cor-texto/75'}">Encerrados</button>
+        <button data-events-tab="todos" class="min-h-10 px-3 py-1.5 rounded-full text-sm ${tab === 'todos' ? 'bg-cor-primaria text-cor-escura font-bold' : 'text-cor-texto/80'}">Todos</button>
+        <button data-events-tab="abertos" class="min-h-10 px-3 py-1.5 rounded-full text-sm ${tab === 'abertos' ? 'bg-cor-primaria text-cor-escura font-bold' : 'text-cor-texto/80'}">Abertos</button>
+        <button data-events-tab="encerrados" class="min-h-10 px-3 py-1.5 rounded-full text-sm ${tab === 'encerrados' ? 'bg-cor-primaria text-cor-escura font-bold' : 'text-cor-texto/80'}">Encerrados</button>
       </div>
-      <input data-events-query type="search" value="${escapeHtml(query)}" placeholder="Buscar evento..." class="w-full md:w-[320px] h-11 rounded-xl bg-cor-fundo/60 border border-cor-texto/15 px-3 outline-none focus:border-cor-primaria/45">
+      <input data-events-query type="search" value="${escapeHtml(query)}" placeholder="Buscar evento..." class="w-full md:w-[320px] h-12 rounded-xl bg-cor-fundo/60 border border-cor-texto/15 px-3 outline-none focus:border-cor-primaria/45">
     </div>
   `;
 }
@@ -161,7 +161,7 @@ function renderModal(event: EventItem): string {
     <div data-event-modal class="fixed inset-0 z-[100] hidden">
       <div data-event-modal-backdrop class="absolute inset-0 bg-cor-fundo/88 backdrop-blur-sm"></div>
       <div class="relative z-10 mx-auto mt-8 md:mt-12 w-[94%] md:w-full max-w-3xl max-h-[86vh] overflow-y-auto rounded-3xl surface-card p-4 md:p-6">
-        <button type="button" data-event-modal-close class="absolute top-3 right-3 inline-flex items-center justify-center w-9 h-9 rounded-full border border-cor-texto/20 text-cor-texto/70 hover:text-cor-primaria hover:border-cor-primaria/40 leading-none">
+        <button type="button" data-event-modal-close class="absolute top-3 right-3 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cor-texto/20 bg-cor-fundo/70 text-cor-texto/80 hover:text-cor-primaria hover:border-cor-primaria/40 leading-none">
           <span aria-hidden="true">×</span>
         </button>
 
@@ -186,7 +186,7 @@ function renderModal(event: EventItem): string {
 
           <div class="mt-5 flex flex-wrap items-center gap-3">
             ${canSubscribe
-              ? `<a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cor-primaria text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Fazer inscricao <span>→</span></a>`
+              ? `<a href="${escapeHtml(event.inscricaoUrl!)}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center gap-2 px-5 py-3 rounded-full bg-cor-primaria text-cor-escura text-sm font-bold hover:bg-cor-destaque transition-colors">Fazer inscricao <span>→</span></a>`
               : `<span class="text-cor-texto/65 text-sm">${event.isPast ? 'Evento finalizado' : 'Evento sem inscricao obrigatoria'}</span>`}
           </div>
         </div>
@@ -246,12 +246,12 @@ function setupEventModal(
 
 export function EventsListPage() {
   return `
-    <main class="min-h-screen bg-cor-fundo text-cor-texto py-20 md:py-24">
+    <main class="min-h-screen bg-cor-fundo text-cor-texto py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
-        <a data-route href="/" class="inline-flex items-center gap-2 text-cor-texto/70 hover:text-cor-primaria text-sm mb-8">← Voltar para home</a>
+        <a data-route href="/" class="inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-cor-texto/75 hover:text-cor-primaria text-sm mb-8">← Voltar para home</a>
         <p class="text-cor-primaria text-xs md:text-sm tracking-[0.18em] uppercase font-semibold">Agenda completa</p>
         <h1 class="mt-3 text-3xl sm:text-4xl md:text-5xl font-black">Todos os eventos</h1>
-        <p class="mt-4 text-cor-texto/75 max-w-3xl">Lista completa de Eventos cadastrados.</p>
+        <p class="mt-4 text-cor-texto/80 max-w-3xl">Lista completa de eventos cadastrados.</p>
 
         <div data-events-toolbar></div>
         <div data-events-list class="mt-8">
