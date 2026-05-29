@@ -33,13 +33,11 @@ export function AboutSection() {
           </div>
 
           <div data-anim="about-image" class="relative md:pt-3">
-            <div class="premium-card relative rounded-3xl p-3 md:p-4">
-              <img
-                src="/media/about.png"
-                class="w-full object-contain max-h-[620px] mx-auto rounded-2xl"
-                alt="Professor da Capoeira Nota 10"
-              >
-            </div>
+            <img
+              src="/media/about.png"
+              class="w-full object-contain max-h-[620px] mx-auto"
+              alt="Professor da Capoeira Nota 10"
+            >
           </div>
         </div>
       </div>

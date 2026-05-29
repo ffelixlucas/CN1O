@@ -206,6 +206,7 @@ section {
 }
 
 .section-kicker {
+  display: block;
   color: #f3c849;
   font-size: 0.78rem;
   font-weight: 800;
