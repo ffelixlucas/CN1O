@@ -19,3 +19,4 @@ export const CLASS_SCHEDULE = [
 
 export const STORE_LINK = STORE_URL;
 export const MATRICULA_LINK = MATRICULA_URL;
+export const STUDENT_PORTAL_LINK = 'https://capoeira-base.vercel.app/aluno/cn10';

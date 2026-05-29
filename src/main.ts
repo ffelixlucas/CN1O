@@ -4,6 +4,7 @@ import { initAnimations } from './animations/index'
 import { iniciarSlideshow } from './components/slideshow'
 import { initMobileMenu } from './components/mobileMenu/mobileMenuBehavior'
 import { initFloatingWhatsApp } from './components/FloatingWhatsApp'
+import { initFloatingStudentPortal } from './components/FloatingStudentPortal'
 import { hydrateFooter } from './components/Footer'
 import { hydrateClassesSection } from './sections/ClassesSection'
 import { hydrateEventsSection } from './sections/EventsSection'
@@ -108,6 +109,7 @@ async function renderAndInitialize() {
   }
 
   setupImageLoading()
+  initFloatingStudentPortal()
   await initFloatingWhatsApp()
 
   document.documentElement.classList.remove('js-loading')
