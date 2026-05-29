@@ -61,7 +61,7 @@ export function Header() {
     ${MobileMenu()}
 
     <!-- Hero content - agora com flex-grow-0 e mt-auto para controle melhor -->
-    <div class="relative z-10 flex-1 flex items-center px-5 py-6 md:px-6 md:py-0 max-w-7xl mx-auto w-full">
+    <div class="relative z-10 flex-1 flex items-center px-5 pb-10 pt-0 md:px-6 md:py-0 max-w-7xl mx-auto w-full">
       <div class="max-w-3xl space-y-5 md:space-y-8">
 
         <div data-anim="hero-line" class="inline-block w-20 h-1.5 bg-cor-primaria rounded-full mb-2"></div>
@@ -80,11 +80,11 @@ export function Header() {
           Aulas de capoeira para criancas, jovens e adultos em Pinhais.
         </p>
 
-        <div data-anim="hero-cta-group" class="grid gap-3 pt-2 sm:flex sm:flex-row sm:flex-wrap sm:gap-4">
+        <div data-anim="hero-cta-group" class="grid gap-2 pt-1.5 sm:flex sm:flex-row sm:flex-wrap sm:gap-4">
         <a 
             href="#aulas" 
             data-anim="hero-cta"
-            class="premium-button min-w-0 px-5 py-4 md:px-9 md:py-5 text-xs sm:text-sm group text-center"
+            class="premium-button min-w-0 px-4 py-3 md:px-9 md:py-5 text-[11px] sm:text-sm group text-center"
           >
             <span class="leading-tight">Agendar aula experimental</span>
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-y-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -97,7 +97,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             data-anim="hero-cta"
-            class="premium-button-secondary min-w-0 px-5 py-4 md:px-9 md:py-5 text-xs sm:text-sm group text-center"
+            class="premium-button-secondary min-w-0 px-4 py-3 md:px-9 md:py-5 text-[11px] sm:text-sm group text-center"
           >
             <span class="leading-tight">Fazer matricula</span>
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -110,7 +110,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             data-anim="hero-cta"
-            class="premium-button-muted min-w-0 px-5 py-4 md:px-7 md:py-5 text-xs sm:text-sm group text-center"
+            class="premium-button-muted min-w-0 px-4 py-3 md:px-7 md:py-5 text-[11px] sm:text-sm group text-center"
           >
             <span class="leading-tight">Acessar loja</span>
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">

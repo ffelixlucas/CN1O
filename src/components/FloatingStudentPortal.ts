@@ -22,7 +22,7 @@ function getOrCreateFloatingButton(): HTMLAnchorElement {
   // Posicionado logo acima do botão de WhatsApp (w-14/h-14) para nao se sobrepor em mobile.
   // Mais compacto e discreto no mobile (44px) que o WhatsApp (56px); cresce levemente no desktop.
   button.className = [
-    'fixed right-4 bottom-[calc(max(env(safe-area-inset-bottom),1rem)+4.25rem)] md:bottom-[5.75rem] z-[90]',
+    'fixed right-[1.125rem] bottom-[calc(max(env(safe-area-inset-bottom),1rem)+4.45rem)] md:right-5 md:bottom-[5.75rem] z-[90]',
     'group inline-flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-full',
     'bg-cor-fundo/90 text-cor-primaria shadow-[0_6px_16px_rgba(0,0,0,0.22)]',
     'border border-cor-primaria/45 transition-transform duration-200 hover:scale-105',
@@ -33,6 +33,9 @@ function getOrCreateFloatingButton(): HTMLAnchorElement {
     <svg class="relative w-5 h-5 md:w-6 md:h-6" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
       <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/>
     </svg>
+    <span class="pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full bg-cor-fundo/80 px-2 py-0.5 text-[10px] font-semibold leading-none text-cor-primaria/90 shadow-[0_4px_10px_rgba(0,0,0,0.18)] md:hidden">
+      Área do aluno
+    </span>
     <span class="hidden md:inline-block absolute right-14 whitespace-nowrap rounded-full bg-cor-fundo/95 border border-cor-texto/15 text-cor-texto text-xs font-semibold px-3 py-1.5 opacity-0 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
       Área do aluno
     </span>
