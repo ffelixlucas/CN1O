@@ -19,13 +19,16 @@ export type NoticeItem = {
 
 const NOTICES_DEBUG = import.meta.env.VITE_NOTICES_DEBUG === 'true';
 
+const SAO_PAULO_TIME_ZONE = 'America/Sao_Paulo';
 const DATE_FORMATTER = new Intl.DateTimeFormat('pt-BR', {
+  timeZone: SAO_PAULO_TIME_ZONE,
   day: '2-digit',
   month: 'short',
   year: 'numeric'
 });
 
 const TIME_FORMATTER = new Intl.DateTimeFormat('pt-BR', {
+  timeZone: SAO_PAULO_TIME_ZONE,
   hour: '2-digit',
   minute: '2-digit'
 });
@@ -49,7 +52,13 @@ function getFirstNumber(source: RawNotice, keys: string[]): number | null {
 
 function normalizeTimestamp(rawDate: string | null, fallback: number): number {
   if (!rawDate) return fallback;
-  const parsed = Date.parse(rawDate);
+  const normalized = rawDate.trim().replace(' ', 'T');
+  if (/^\d{4}-\d{2}-\d{2}$/.test(normalized)) {
+    const parsedDateOnly = Date.parse(`${normalized}T00:00:00-03:00`);
+    return Number.isNaN(parsedDateOnly) ? fallback : parsedDateOnly;
+  }
+  const hasTimezone = /[zZ]|[+-]\d{2}:\d{2}$/.test(normalized);
+  const parsed = Date.parse(hasTimezone ? normalized : `${normalized}-03:00`);
   return Number.isNaN(parsed) ? fallback : parsed;
 }
 
